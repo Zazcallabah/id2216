@@ -5,7 +5,7 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs")
-    port = process.argv[2] || 8888;
+    port = process.argv[2] || 8880;
 	
 var requesthandler = function( request, response ) {
 	var pathname = url.parse( request.url ).pathname;
@@ -22,15 +22,24 @@ var requesthandler = function( request, response ) {
 			request.on('end', function() {
 				if(!storage.hasOwnProperty(label))
 					storage[label] = [];
-				storage[label] += JSON.parse( data );
+				storage[label].push( JSON.parse(data) );
 				console.log( "["+label+"] stored "+data );
 				response.writeHead(200, "OK", {'Content-Type': 'text/html'});
 				response.end();
 			});
 		} else {
-			response.writeHead(200);
+			response.writeHead(200, {"Content-Type": "application/json"});
+
 			if(storage.hasOwnProperty(label))
-				response.write( JSON.stringify( storage[label] ) );
+			{
+			var arr = JSON.stringify(storage[label]);
+			console.log("["+label+"] fetched " + arr);
+				response.write(arr);
+			}
+			else
+			{
+			response.write("[]");
+			}
 			response.end();
 			return;
 		}

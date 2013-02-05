@@ -6,41 +6,93 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="http://knockoutjs.com/downloads/knockout-2.2.1.js"></script>
     <script>
-    var send = function(label){
-            $.ajax(
-                    {
-                        type: "POST",
-                        data: JSON.stringify($('textarea#textarea1').val()),
-                        url: "api/"+label,
-                        dataType:"json",
-                        success: function(data)
-                        {
 
-                        },
-                        error: function(a,b,c) // in case of error.
-                        {
-                            console.log(a);
-                            console.log(b);
-                            console.log(c);
-                        }
-                    });
-    };
-        window.onload = function(){
-            $("#groupa").click(function() { send("a"); });
-            $("#groupb").click(function() { send("b"); });
-            $("#groupc").click(function() { send("c"); });
-            $("#groupd").click(function() { send("d"); });
+    function Contact( data )
+    {
+        this.text = ko.observable(data.text);
+        this.name = ko.observable(data.name);
+    }
 
-            $("#grouppage").hide();
-            $("#share").click(function() {
+    function ViewModel()
+    {
+        var self = this;
+        self.contacts = ko.observableArray([]);
 
-                $("#detailpage").hide();
-            $("#grouppage").show();
-            });
+        self.set = function(data)
+        {
+            self.contacts([]);
+            for( var i = 0; i < data.length; i++)
+            {
+                self.contacts.push( new Contact( data[i] ));
+            }
         };
+    }
+    var vm = new ViewModel();
+    var send = function(label){
+    var text = $('textarea#textarea1').val();
+    var c = { name: $('#textinput1').val(), text: text };
+    $.ajax(
+    {
+    type: "POST",
+    data: JSON.stringify( c ),
+    url: "api/"+label,
+    dataType:"json",
+    success: function(data)
+    {
+
+    },
+    error: function(a,b,c) // in case of error.
+    {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    }
+    });
+
+    $("#grouppage").hide();
+    $("#resultpage").show();
+
+    var max_requests = 10;
+    (function w_req(){
+    $.ajax({
+    url: "api/"+label,
+    dataType:"json", // serialize'd
+    success: function(data)
+    {
+    vm.set(data);
+    if( max_requests-- > 0 )
+    setTimeout( w_req, 2000 );
+    },
+    error: function(a,b,c) // in case of error.
+    {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    }
+    });
+    })();
+
+
+    };
+    window.onload = function(){
+        ko.applyBindings(vm);
+        $("#groupa").click(function() { send("a"); });
+        $("#groupb").click(function() { send("b"); });
+        $("#groupc").click(function() { send("c"); });
+        $("#groupd").click(function() { send("d"); });
+        $("#grouppage").hide();
+        $("#resultpage").hide();
+
+        $("#share").click(function() {
+            $("#detailpage").hide();
+            $("#grouppage").show();
+        });
+    };
 
     </script>
+    </head>
 <body>
 <div data-role="page" id="page1">
     <div data-theme="a" data-role="header">
@@ -48,7 +100,16 @@
             Contact Sharing
         </h3>
     </div>
+
     <div data-role="content" id="detailpage">
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput1">
+                    Name
+                </label>
+                <input name="" id="textinput1" placeholder="" value="" type="text">
+            </fieldset>
+        </div>
         <div data-role="fieldcontain">
             <fieldset data-role="controlgroup">
                 <label for="textarea1">
@@ -82,6 +143,12 @@
         <h3>
             Result
         </h3>
+
+        <div  data-bind="foreach:contacts">
+            <strong data-bind="text: name"></strong><div data-bind="text:text">
+
+            </div>
+            </div>
     </div>
   </div>
   </body>
