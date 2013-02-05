@@ -104,65 +104,72 @@
                     </legend>
                     <input id="attribute1" type="checkbox">
                     <label for="attribute1">
-                        All
+                        Everyone
                     </label>
                     <input id="attribute2" type="checkbox">
                     <label for="attribute2">
-                        Dummy user1
+                        &nbsp;&nbsp;&nbsp;Dummy user1
                     </label>
                     <input id="attribute3" type="checkbox">
                     <label for="attribute3">
-                        Dummy user1
+                        &nbsp;&nbsp;&nbsp;Dummy user2
                     </label>
                 </fieldset>
-                <a data-role="button" href="#groupselection">Enter group</a>
+                <a data-role="button" href="#importdata">Enter group</a>
             </form>
         </div>
     </div>
 </div>
 
-
-<div data-role="page" id="temp">
+<div data-role="page" id="importdata">
     <div data-theme="a" data-role="header">
         <h3>
-            Contact Sharing
+            Group sharing app
         </h3>
     </div>
-    <div data-role="content" id="detailpage">
-        <div data-role="fieldcontain">
-            <fieldset data-role="controlgroup">
-                <label for="textarea1">
-                    Enter contact data
-                </label>
-                <textarea name="" id="textarea1" placeholder=""></textarea>
-            </fieldset>
+    
+    <div data-role="content">
+        <div id="checkboxes" data-role="fieldcontain">
+            <form>
+                <fieldset data-role="controlgroup">
+                    <legend>
+                        Select contact data you want to import into your address book
+                    </legend>
+                    <input id="attribute1" type="checkbox">
+                    <label for="attribute1">
+                        Everything
+                    </label>
+                    <input id="attribute2" type="checkbox">
+                    <label for="attribute2">
+                        &nbsp;&nbsp;&nbsp;Dummy user1
+                    </label>
+                    <input id="attribute3" type="checkbox">
+                    <label for="attribute3">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Firstname2 Lastname2
+                    </label>
+                    <input id="attribute4" type="checkbox">
+                    <label for="attribute4">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email2@example.org
+                    </label>
+                    <input id="attribute5" type="checkbox">
+                    <label for="attribute5">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+46 123 456789
+                    </label>
+                    <input id="attribute6" type="checkbox">
+                    <label for="attribute6">
+                        &nbsp;&nbsp;&nbsp;Dummy user2
+                    </label>
+                    <input id="attribute7" type="checkbox">
+                    <label for="attribute7">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email3@example.org
+                    </label>
+                </fieldset>
+                <a data-role="button" href="#groupselection">Import</a>
+            </form>
         </div>
-        <a data-role="button" id="share">
-            Share
-        </a>
     </div>
-    <div data-role="content" id="grouppage">
-    <h2>
-        Select group
-    </h2>
-            <a data-role="button" id="groupa">
-                One
-            </a>
-            <a data-role="button" data-theme="a" id="groupb">
-                Two
-            </a>
-            <a data-role="button" data-theme="e" id="groupc">
-                Three
-            </a>
-            <a data-role="button" data-theme="b" id="groupd">
-                Four
-            </a>
-    </div>
-    <div data-role="content" id="resultpage">
-        <h3>
-            Result
-        </h3>
-    </div>
-  </div>
-  </body>
+</div>
+
+</body>
+
 </html>
