@@ -7,26 +7,36 @@
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
     <script>
-        window.onload = function(){
-            $("#share").click(function() {
-                $.ajax(
+    var send = function(label){
+            $.ajax(
+                    {
+                        type: "POST",
+                        data: JSON.stringify($('textarea#textarea1').val()),
+                        url: "api/"+label,
+                        dataType:"json",
+                        success: function(data)
                         {
-                            type: "POST",
-                            data: JSON.stringify($('textarea#textarea1').val()),
-                            url: "api/current",
-                            dataType:"json",
-                            success: function(data)
-                            {
 
-                            },
-                            error: function(a,b,c) // in case of error.
-                            {
-                                console.log(a);
-                                console.log(b);
-                                console.log(c);
-                            }
-                        });
-                alert("Handler for .click() called.");
+                        },
+                        error: function(a,b,c) // in case of error.
+                        {
+                            console.log(a);
+                            console.log(b);
+                            console.log(c);
+                        }
+                    });
+    };
+        window.onload = function(){
+            $("#groupa").click(function() { send("a"); });
+            $("#groupb").click(function() { send("b"); });
+            $("#groupc").click(function() { send("c"); });
+            $("#groupd").click(function() { send("d"); });
+
+            $("#grouppage").hide();
+            $("#share").click(function() {
+
+                $("#detailpage").hide();
+            $("#grouppage").show();
             });
         };
 
@@ -47,11 +57,32 @@
                 <textarea name="" id="textarea1" placeholder=""></textarea>
             </fieldset>
         </div>
-        <a data-role="button" href="#page1" id="share">
+        <a data-role="button" id="share">
             Share
         </a>
     </div>
     <div data-role="content" id="grouppage">
+    <h2>
+        Select group
+    </h2>
+            <a data-role="button" id="groupa">
+                One
+            </a>
+            <a data-role="button" data-theme="a" id="groupb">
+                Two
+            </a>
+            <a data-role="button" data-theme="e" id="groupc">
+                Three
+            </a>
+            <a data-role="button" data-theme="b" id="groupd">
+                Four
+            </a>
     </div>
-</div></body>
+    <div data-role="content" id="resultpage">
+        <h3>
+            Result
+        </h3>
+    </div>
+  </div>
+  </body>
 </html>

@@ -23,7 +23,7 @@ var requesthandler = function( request, response ) {
 				if(!storage.hasOwnProperty(label))
 					storage[label] = [];
 				storage[label] += JSON.parse( data );
-				console.log( "stored "+data );
+				console.log( "["+label+"] stored "+data );
 				response.writeHead(200, "OK", {'Content-Type': 'text/html'});
 				response.end();
 			});
