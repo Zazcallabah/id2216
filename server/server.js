@@ -16,13 +16,14 @@ var requesthandler = function( request, response ) {
 			label = pathname.substring(4);
 		if( request.method === "POST" ) {
 			var data = "";
-			req.on('data', function(chunk) {
+			request.on('data', function(chunk) {
 				data = data + chunk.toString();
 			});
-			req.on('end', function() {
+			request.on('end', function() {
 				if(!storage.hasOwnProperty(label))
 					storage[label] = [];
 				storage[label] += JSON.parse( data );
+				console.log( "stored "+data );
 				response.writeHead(200, "OK", {'Content-Type': 'text/html'});
 				response.end();
 			});
