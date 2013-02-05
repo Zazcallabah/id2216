@@ -1,4 +1,4 @@
-var storage = {list:[]};
+var storage = {};
 
 // web server paste
 var http = require("http"),
@@ -6,40 +6,39 @@ var http = require("http"),
     path = require("path"),
     fs = require("fs")
     port = process.argv[2] || 8888;
+	
 var requesthandler = function( request, response ) {
 	var pathname = url.parse( request.url ).pathname;
 
-	if(pathname.substring(0,4) === "/api" )
-	{
-		if( request.method === "POST" )
-		{
+	if(pathname.substring(0,4) === "/api" ) {
+		var label = "default";
+		if( pathname.length > 4 )
+			label = pathname.substring(4);
+		if( request.method === "POST" ) {
 			var data = "";
 			req.on('data', function(chunk) {
 				data = data + chunk.toString();
 			});
-    
-    req.on('end', function() {
-		storage.list += JSON.parse( data );
-      response.writeHead(200, "OK", {'Content-Type': 'text/html'});
-      response.end();
-    });
+			req.on('end', function() {
+				if(!storage.hasOwnProperty(label))
+					storage[label] = [];
+				storage[label] += JSON.parse( data );
+				response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+				response.end();
+			});
+		} else {
+			response.writeHead(200);
+			if(storage.hasOwnProperty(label))
+				response.write( JSON.stringify( storage[label] ) );
+			response.end();
+			return;
 		}
-		else
-		{
-		response.writeHead(200);
-		response.write( JSON.stringify( storage.list ) );
-		response.end();
-		return;
-		}
-	}
-	else
-	{
-		
+	} else {
 		var uri = "../html" + pathname;
 		var filename = path.join(process.cwd(), uri);
 		path.exists(filename, function(exists) {
 			if(!exists) {
-			console.log("404: "+pathname);
+				console.log("404: "+pathname);
 				response.writeHead(404, {"Content-Type": "text/plain"});
 				response.write("404 Not Found\n");
 				response.end();
@@ -73,5 +72,5 @@ console.log("Static file server running at\n  => http://localhost:" + port + "/\
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function (chunk) {
- current_state = chunk;
+	current_state = chunk;
 });
