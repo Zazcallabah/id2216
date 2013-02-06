@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact sharing app</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>
+
+<body>
+
+<div data-role="page" id="main">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Group sharing app
+        </h3>
+    </div>
+    <div data-role="content">
+        <form>
+            <div id="checkboxes1" data-role="fieldcontain">
+                <fieldset data-role="controlgroup" data-type="vertical" data-mini="true">
+                    <legend>
+                        Share my
+                    </legend>
+                    <input id="checkbox1" name="" type="checkbox">
+                    <label for="checkbox1">
+                        Firstname Lastname
+                    </label>
+                    <input id="checkbox2" name="" type="checkbox">
+                    <label for="checkbox2">
+                        email@example.org
+                    </label>
+                    <input id="checkbox3" name="" type="checkbox">
+                    <label for="checkbox3">
+                        +46 543 123456
+                    </label>
+                    <input id="checkbox4" name="" type="checkbox">
+                    <label for="checkbox4">
+                        facebook: username
+                    </label>
+                </fieldset>
+  <a data-role="button" data-theme="d" href="#editdata">Edit</a>
+                              <a data-role="button" data-theme="e"  href="#groupselection">Share</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div data-role="page" id="editdata">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Header
+        </h3>
+    </div>
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput1">
+                    Name
+                </label>
+                <input name="" id="textinput1" placeholder="" value="Firstname Lastname" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput2">
+                    Email
+                </label>
+                <input name="" id="textinput2" placeholder="" value="email@example.org" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput3">
+                    Phone
+                </label>
+                <input name="" id="textinput3" placeholder="" value="012 345 67" type="text">
+            </fieldset>
+        </div>
+        <a data-role="button" >
+            Add field
+        </a>
+        <a data-role="button" data-theme="e" href="#main">
+            Return
+        </a>
+    </div>
+</div>
+
+<div data-role="page" id="groupselection">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Group sharing app
+        </h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="checkboxes" data-role="fieldcontain">
+            <form>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>
+                        Select group identification
+                    </legend>
+                    <input id="attribute1" type="checkbox">
+                    <label for="attribute1">
+                        <img src="images/attribute-01.png" alt="attribute-01-alt">
+                    </label>
+                    <input id="attribute2" type="checkbox">
+                    <label for="attribute2">
+                        <img src="images/attribute-02.png" alt="attribute-02-alt">
+                    </label>
+                    <input id="attribute3" type="checkbox">
+                    <label for="attribute3">
+                        <img src="images/attribute-03.png" alt="attribute-03-alt">
+                    </label>
+                    <input id="attribute4" type="checkbox">
+                    <label for="attribute4">
+                        <img src="images/attribute-04.png" alt="attribute-04-alt">
+                    </label>
+                    <input id="attribute5" type="checkbox">
+                    <label for="attribute5">
+                        <img src="images/attribute-05.png" alt="attribute-05-alt">
+                    </label>
+                </fieldset>
+                <a data-role="button" data-theme="e"  href="#excludeusers">Enter group</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="excludeusers">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Group sharing app
+        </h3>
+    </div>
+    
+    <div data-role="content">
+        <div id="checkboxes33" data-role="fieldcontain">
+            <form>
+                <fieldset data-role="controlgroup">
+                    <legend>
+                        Unselect users you don't want to share your data with
+                    </legend>
+                    <input id="attribute1hh" type="checkbox">
+                    <label for="attribute1hh">
+                        Everyone
+                    </label>
+                    <input id="attribute2ii" type="checkbox">
+                    <label for="attribute2ii">
+                        &nbsp;&nbsp;&nbsp;Dummy user1
+                    </label>
+                    <input id="attribute3ee" type="checkbox">
+                    <label for="attribute3ee">
+                        &nbsp;&nbsp;&nbsp;Dummy user2
+                    </label>
+                </fieldset>
+                <a data-role="button" data-theme="e"  href="#importdata">Enter group</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div data-role="page" id="importdata">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Group sharing app
+        </h3>
+    </div>
+
+    <div data-role="content">
+
+        <p>Select contact data you want to import into your address book</p>
+
+        <div id="checkboxes22" data-role="fieldcontain">
+                    <input id="attribute1aa" type="checkbox" data-theme="b">
+                    <label for="attribute1aa">
+                        Everything
+                    </label>
+                </div>
+            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                <li data-role="list-divider" role="heading">
+                    <div id="checkboxes213" data-role="fieldcontain">
+                        <input id="attribute4123" type="checkbox">
+                        <label for="attribute4123">
+                            Dummy user 1
+                        </label>
+                    </div>  </li>
+                <li data-theme="c">
+                    <div id="checkboxes34" data-role="fieldcontain">
+                        <input id="attribute3o" type="checkbox">
+                        <label for="attribute3o">
+                            Firstname2 Lastname2
+                        </label>
+                        <input id="attribute4u" type="checkbox">
+                        <label for="attribute4u">
+                            email2@example.org
+                        </label>
+                        <input id="attribute5o" type="checkbox">
+                        <label for="attribute5o">
+                            +46 123 456789
+                        </label>
+                    </div>
+                </li>
+                <li data-role="list-divider" role="heading">
+                    <div id="checkboxes21" data-role="fieldcontain" >
+                        <input id="attribute412" type="checkbox" >
+                        <label for="attribute412" >
+                            Dummy user 2
+                        </label>
+                    </div>
+                </li>
+                <li data-theme="c">
+                    <div id="checkboxes2" data-role="fieldcontain">
+                        <input id="attribute41" type="checkbox">
+                        <label for="attribute41">
+                            email3@example.org
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    <a data-role="button" data-theme="e" href="#importsuccess" data-rel="dialog" data-transition="pop">Import</a>
+</div>
+
+<div data-role="page" id="importsuccess">
+
+    <div data-role="header" data-theme="e">
+        <h3>
+            Group sharing app
+        </h3>
+    </div>
+
+    <div data-role="content" data-theme="d">
+        <h2>Success</h2>
+        <p>The contact data has successfully been imported!</p>
+    </div>
+</div>
+
+</body>
+
+</html>
