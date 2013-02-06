@@ -41,9 +41,50 @@
                         facebook: username
                     </label>
                 </fieldset>
-                <a data-role="button" data-theme="e"  href="#groupselection">Share</a>
+                <a data-role="button" data-theme="d" href="#editdata">Edit</a>
+                <a data-role="button" data-theme="e" href="#groupselection">Share</a>
             </div>
         </form>
+    </div>
+</div>
+
+<div data-role="page" id="editdata">
+    <div data-theme="a" data-role="header">
+        <h3>
+            Header
+        </h3>
+    </div>
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput1">
+                    Name
+                </label>
+                <input name="" id="textinput1" placeholder="" value="Firstname Lastname" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput2">
+                    Email
+                </label>
+                <input name="" id="textinput2" placeholder="" value="email@example.org" type="text">
+            </fieldset>
+        </div>
+        <div data-role="fieldcontain">
+            <fieldset data-role="controlgroup">
+                <label for="textinput3">
+                    Phone
+                </label>
+                <input name="" id="textinput3" placeholder="" value="012 345 67" type="text">
+            </fieldset>
+        </div>
+        <a data-role="button" >
+            Add field
+        </a>
+        <a data-role="button" data-theme="e" href="#main">
+            Return
+        </a>
     </div>
 </div>
 
