@@ -7,6 +7,34 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script>
+	var ch_1 = function() {
+			var ch = ($('#ch1').is(':checked'));
+			$("#ch11").attr("checked",ch).checkboxradio("refresh");
+			$("#ch12").attr("checked",ch).checkboxradio("refresh");
+			$("#ch13").attr("checked",ch).checkboxradio("refresh");
+		};
+	var ch_2 = function() {
+			var ch = ($('#ch2').is(':checked'));
+			$("#ch21").attr("checked",ch).checkboxradio("refresh");
+		};
+	    window.onload = function(){
+        $("#ch0").click(function() {
+			var ch = ($('#ch0').is(':checked'));
+			$("#ch1").attr("checked",ch).checkboxradio("refresh");
+			$("#ch2").attr("checked",ch).checkboxradio("refresh");
+			ch_1();
+			ch_2();
+		});
+        $("#ch1").click(ch_1);
+        $("#ch2").click(ch_2);
+        $("#g0").click(function() {
+			var ch = ($('#g0').is(':checked'));
+			$("#g1").attr("checked",ch).checkboxradio("refresh");
+			$("#g2").attr("checked",ch).checkboxradio("refresh");
+		});
+		};
+</script>
 </head>
 
 <body>
@@ -14,7 +42,7 @@
 <div data-role="page" id="main">
     <div data-theme="a" data-role="header">
         <h3>
-            Group sharing app
+            Contact Sharing
         </h3>
     </div>
     <div data-role="content">
@@ -51,7 +79,7 @@
 <div data-role="page" id="editdata">
     <div data-theme="a" data-role="header">
         <h3>
-            Header
+            Edit your contact details
         </h3>
     </div>
     <div data-role="content">
@@ -91,7 +119,7 @@
 <div data-role="page" id="groupselection">
     <div data-theme="a" data-role="header">
         <h3>
-            Group sharing app
+            Contact Sharing
         </h3>
     </div>
     
@@ -100,7 +128,7 @@
             <form>
                 <fieldset data-role="controlgroup" data-type="horizontal">
                     <legend>
-                        Select group identification
+                        Choose a combination of icons to represent the group you wish to share with.
                     </legend>
                     <input id="attribute1" type="checkbox">
                     <label for="attribute1">
@@ -123,7 +151,7 @@
                         <img src="images/attribute-05.png" alt="attribute-05-alt">
                     </label>
                 </fieldset>
-                <a data-role="button" data-theme="e"  href="#excludeusers">Enter group</a>
+                <a data-role="button" data-theme="e"  href="#excludeusers">Join group</a>
             </form>
         </div>
     </div>
@@ -132,7 +160,7 @@
 <div data-role="page" id="excludeusers">
     <div data-theme="a" data-role="header">
         <h3>
-            Group sharing app
+            Contact Sharing
         </h3>
     </div>
     
@@ -143,20 +171,20 @@
                     <legend>
                         Unselect users you don't want to share your data with
                     </legend>
-                    <input id="attribute1hh" type="checkbox">
-                    <label for="attribute1hh">
+                    <input id="g0" type="checkbox">
+                    <label for="g0">
                         Everyone
                     </label>
-                    <input id="attribute2ii" type="checkbox">
-                    <label for="attribute2ii">
-                        &nbsp;&nbsp;&nbsp;Dummy user1
+                    <input id="g1" type="checkbox">
+                    <label for="g1">
+                        Dummy user1
                     </label>
-                    <input id="attribute3ee" type="checkbox">
-                    <label for="attribute3ee">
-                        &nbsp;&nbsp;&nbsp;Dummy user2
+                    <input id="g2" type="checkbox">
+                    <label for="g2">
+                        Dummy user2
                     </label>
                 </fieldset>
-                <a data-role="button" data-theme="e"  href="#importdata">Enter group</a>
+                <a data-role="button" data-theme="e"  href="#importdata">Share</a>
             </form>
         </div>
     </div>
@@ -165,7 +193,7 @@
 <div data-role="page" id="importdata">
     <div data-theme="a" data-role="header">
         <h3>
-            Group sharing app
+            Contact Sharing
         </h3>
     </div>
 
@@ -174,47 +202,47 @@
         <p>Select contact data you want to import into your address book</p>
 
         <div id="checkboxes22" data-role="fieldcontain">
-                    <input id="attribute1aa" type="checkbox" data-theme="b">
-                    <label for="attribute1aa">
+                    <input id="ch0" type="checkbox" data-theme="b">
+                    <label for="ch0">
                         Everything
                     </label>
                 </div>
             <ul data-role="listview" data-divider-theme="d" data-inset="true">
                 <li data-role="list-divider" role="heading">
                     <div id="checkboxes213" data-role="fieldcontain">
-                        <input id="attribute4123" type="checkbox">
-                        <label for="attribute4123">
+                        <input id="ch1" type="checkbox">
+                        <label for="ch1">
                             Dummy user 1
                         </label>
                     </div>  </li>
                 <li data-theme="c">
                     <div id="checkboxes34" data-role="fieldcontain">
-                        <input id="attribute3o" type="checkbox">
-                        <label for="attribute3o">
+                        <input id="ch11" type="checkbox">
+                        <label for="ch11">
                             Firstname2 Lastname2
                         </label>
-                        <input id="attribute4u" type="checkbox">
-                        <label for="attribute4u">
+                        <input id="ch12" type="checkbox">
+                        <label for="ch12">
                             email2@example.org
                         </label>
-                        <input id="attribute5o" type="checkbox">
-                        <label for="attribute5o">
+                        <input id="ch13" type="checkbox">
+                        <label for="ch13">
                             +46 123 456789
                         </label>
                     </div>
                 </li>
                 <li data-role="list-divider" role="heading">
                     <div id="checkboxes21" data-role="fieldcontain" >
-                        <input id="attribute412" type="checkbox" >
-                        <label for="attribute412" >
+                        <input id="ch2" type="checkbox" >
+                        <label for="ch2" >
                             Dummy user 2
                         </label>
                     </div>
                 </li>
                 <li data-theme="c">
                     <div id="checkboxes2" data-role="fieldcontain">
-                        <input id="attribute41" type="checkbox">
-                        <label for="attribute41">
+                        <input id="ch21" type="checkbox">
+                        <label for="ch21">
                             email3@example.org
                         </label>
                     </div>
@@ -228,13 +256,16 @@
 
     <div data-role="header" data-theme="e">
         <h3>
-            Group sharing app
+            Contact Sharing
         </h3>
     </div>
 
     <div data-role="content" data-theme="d">
         <h2>Success</h2>
         <p>The contact data has successfully been imported!</p>
+        <a data-role="button" href="#main">
+            Return
+        </a>
     </div>
 </div>
 
