@@ -33,7 +33,7 @@
 			$("#g1").attr("checked",ch).checkboxradio("refresh");
 			$("#g2").attr("checked",ch).checkboxradio("refresh");
 		});
-		};
+	};
 </script>
 </head>
 
@@ -111,7 +111,10 @@
             Add field
         </a>
         <a data-role="button" data-theme="e" href="#main">
-            Return
+            Save
+        </a>
+        <a data-role="button" data-theme="c" href="#main">
+            Cancel
         </a>
     </div>
 </div>
@@ -166,15 +169,18 @@
     
     <div data-role="content">
         <div id="checkboxes33" data-role="fieldcontain">
-            <form>
                 <fieldset data-role="controlgroup">
                     <legend>
-                        Unselect users you don't want to share your data with
+                        Select users to send your data to
                     </legend>
                     <input id="g0" type="checkbox">
                     <label for="g0">
                         Everyone
                     </label>
+				</fieldset>
+		</div>
+
+        <div id="checkboxes331" data-role="fieldcontain">
                     <input id="g1" type="checkbox">
                     <label for="g1">
                         Dummy user1
@@ -183,10 +189,8 @@
                     <label for="g2">
                         Dummy user2
                     </label>
-                </fieldset>
-                <a data-role="button" data-theme="e"  href="#importdata">Share</a>
-            </form>
         </div>
+                <a data-role="button" data-theme="e"  href="#importdata">Send</a>
     </div>
 </div>
 
@@ -264,7 +268,7 @@
         <h2>Success</h2>
         <p>The contact data has successfully been imported!</p>
         <a data-role="button" href="#main">
-            Return
+            OK
         </a>
     </div>
 </div>
