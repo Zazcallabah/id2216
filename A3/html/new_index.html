@@ -41,7 +41,7 @@
                         facebook: username
                     </label>
                 </fieldset>
-                <a data-role="button" href="#groupselection">Share</a>
+                <a data-role="button" data-theme="e"  href="#groupselection">Share</a>
             </div>
         </form>
     </div>
@@ -82,7 +82,7 @@
                         <img src="images/attribute-05.png" alt="attribute-05-alt">
                     </label>
                 </fieldset>
-                <a data-role="button" href="#excludeusers">Enter group</a>
+                <a data-role="button" data-theme="e"  href="#excludeusers">Enter group</a>
             </form>
         </div>
     </div>
@@ -96,26 +96,26 @@
     </div>
     
     <div data-role="content">
-        <div id="checkboxes" data-role="fieldcontain">
+        <div id="checkboxes33" data-role="fieldcontain">
             <form>
                 <fieldset data-role="controlgroup">
                     <legend>
                         Unselect users you don't want to share your data with
                     </legend>
-                    <input id="attribute1" type="checkbox">
-                    <label for="attribute1">
+                    <input id="attribute1hh" type="checkbox">
+                    <label for="attribute1hh">
                         Everyone
                     </label>
-                    <input id="attribute2" type="checkbox">
-                    <label for="attribute2">
+                    <input id="attribute2ii" type="checkbox">
+                    <label for="attribute2ii">
                         &nbsp;&nbsp;&nbsp;Dummy user1
                     </label>
-                    <input id="attribute3" type="checkbox">
-                    <label for="attribute3">
+                    <input id="attribute3ee" type="checkbox">
+                    <label for="attribute3ee">
                         &nbsp;&nbsp;&nbsp;Dummy user2
                     </label>
                 </fieldset>
-                <a data-role="button" href="#importdata">Enter group</a>
+                <a data-role="button" data-theme="e"  href="#importdata">Enter group</a>
             </form>
         </div>
     </div>
@@ -132,44 +132,55 @@
 
         <p>Select contact data you want to import into your address book</p>
 
-        <div id="checkboxes" data-role="fieldcontain">
-                    <input id="attribute1" type="checkbox">
-                    <label for="attribute1">
+        <div id="checkboxes22" data-role="fieldcontain">
+                    <input id="attribute1aa" type="checkbox" data-theme="b">
+                    <label for="attribute1aa">
                         Everything
                     </label>
-                    
-                  </div>
-
-        <div id="dataimport" data-role="collapsible-set">
-        <div data-role="collapsible" data-collapsed="true">
-                    <h3>
-                        Dummy user1
-</h3>
-                    <input id="attribute3" type="checkbox">
-                    <label for="attribute3">
-                  Firstname2 Lastname2
-                    </label>
-                    <input id="attribute4" type="checkbox">
-                    <label for="attribute4">
-                      email2@example.org
-                    </label>
-                    <input id="attribute5" type="checkbox">
-                    <label for="attribute5">
-                     +46 123 456789
-                    </label>
+                </div>
+            <ul data-role="listview" data-divider-theme="d" data-inset="true">
+                <li data-role="list-divider" role="heading">
+                    <div id="checkboxes213" data-role="fieldcontain">
+                        <input id="attribute4123" type="checkbox">
+                        <label for="attribute4123">
+                            Dummy user 1
+                        </label>
+                    </div>  </li>
+                <li data-theme="c">
+                    <div id="checkboxes34" data-role="fieldcontain">
+                        <input id="attribute3o" type="checkbox">
+                        <label for="attribute3o">
+                            Firstname2 Lastname2
+                        </label>
+                        <input id="attribute4u" type="checkbox">
+                        <label for="attribute4u">
+                            email2@example.org
+                        </label>
+                        <input id="attribute5o" type="checkbox">
+                        <label for="attribute5o">
+                            +46 123 456789
+                        </label>
+                    </div>
+                </li>
+                <li data-role="list-divider" role="heading">
+                    <div id="checkboxes21" data-role="fieldcontain" >
+                        <input id="attribute412" type="checkbox" >
+                        <label for="attribute412" >
+                            Dummy user 2
+                        </label>
+                    </div>
+                </li>
+                <li data-theme="c">
+                    <div id="checkboxes2" data-role="fieldcontain">
+                        <input id="attribute41" type="checkbox">
+                        <label for="attribute41">
+                            email3@example.org
+                        </label>
+                    </div>
+                </li>
+            </ul>
         </div>
-            <div data-role="collapsible" data-collapsed="true">
-                   <h3>
-                        Dummy user2
-                   </h3>
-                    <input id="attribute7" type="checkbox">
-                    <label for="attribute7">
-                 email3@example.org
-                    </label>
-                    </div>
-                    </div>
-     <a data-role="button" href="#importsuccess" data-rel="dialog" data-transition="pop">Import</a>
-  </div>
+    <a data-role="button" data-theme="e" href="#importsuccess" data-rel="dialog" data-transition="pop">Import</a>
 </div>
 
 <div data-role="page" id="importsuccess">
