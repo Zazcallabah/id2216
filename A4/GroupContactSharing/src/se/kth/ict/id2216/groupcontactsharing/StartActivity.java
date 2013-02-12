@@ -32,13 +32,16 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 
 		android.util.Log.i("onEditButton_Click", "ok");
 
-//		Intent editDataIntent = new Intent(this, SettingsActivity.class);
-//		startActivity(editDataIntent);
+		Intent editDataIntent = new Intent(this, EditDataActivity.class);
+		startActivity(editDataIntent);
 	}
 
 	public void onShareButton_Click(View v) {
 
 		android.util.Log.i("onShareButton_Click", "ok");
+
+		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
+		startActivity(identifyGroup);
 	}
 
 }

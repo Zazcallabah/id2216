@@ -22,6 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="se.kth.ict.id2216.groupcontactsharing.EditDataActivity"
+            android:label="@string/title_activity_edit_data" >
+        </activity>
+        <activity
+            android:name="se.kth.ict.id2216.groupcontactsharing.IdentifyGroupActivity"
+            android:label="@string/title_activity_identify_group" >
+        </activity>
+        <activity
+            android:name="se.kth.ict.id2216.groupcontactsharing.ExcludeReceiversActivity"
+            android:label="@string/title_activity_exclude_receivers" >
+        </activity>
+        <activity
+            android:name="se.kth.ict.id2216.groupcontactsharing.ImportDataActivity"
+            android:label="@string/title_activity_import_data" >
+        </activity>
     </application>
 
 </manifest>

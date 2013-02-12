@@ -5,7 +5,7 @@
     tools:context=".StartActivity" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,38 +16,38 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/nameCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/nameTextView"
+        android:layout_below="@+id/nameTextView"
         android:text="@string/sample_name"
         android:checked="true" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/emailCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox1"
-        android:layout_below="@+id/checkBox1"
+        android:layout_alignLeft="@+id/nameCheckBox"
+        android:layout_below="@+id/nameCheckBox"
         android:text="@string/sample_email"
         android:checked="true" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/phoneCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox2"
-        android:layout_below="@+id/checkBox2"
+        android:layout_alignLeft="@+id/emailCheckBox"
+        android:layout_below="@+id/emailCheckBox"
         android:text="@string/sample_phone"
         android:checked="true" />
 
     <CheckBox
-        android:id="@+id/checkBox4"
+        android:id="@+id/facebookCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox3"
-        android:layout_below="@+id/checkBox3"
+        android:layout_alignLeft="@+id/phoneCheckBox"
+        android:layout_below="@+id/phoneCheckBox"
         android:text="@string/sample_facebook"
         android:checked="true" />
 
@@ -55,20 +55,20 @@
         android:id="@+id/editButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox4"
-        android:layout_below="@+id/checkBox4"
-        android:layout_marginTop="15dp"
-        android:text="@string/edit"
-        android:onClick="onEditButton_Click" />
+        android:layout_alignLeft="@+id/facebookCheckBox"
+        android:layout_alignRight="@+id/facebookCheckBox"
+        android:layout_below="@+id/facebookCheckBox"
+        android:onClick="onEditButton_Click"
+        android:text="@string/edit" />
 
     <Button
         android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editButton"
-        android:layout_alignBottom="@+id/editButton"
-        android:layout_toRightOf="@+id/editButton"
-        android:text="@string/share"
-        android:onClick="onShareButton_Click" />
+        android:layout_alignLeft="@+id/editButton"
+        android:layout_alignRight="@+id/editButton"
+        android:layout_below="@+id/editButton"
+        android:onClick="onShareButton_Click"
+        android:text="@string/share" />
 
 </RelativeLayout>
