@@ -26,5 +26,6 @@
     <string name="title_activity_identify_group">Identify Group</string>
     <string name="title_activity_select_receivers">SelectReceiversActivity</string>
     <string name="title_activity_import_data">ImportDataActivity</string>
+    <string name="questionmark">"?"</string>
 
 </resources>
