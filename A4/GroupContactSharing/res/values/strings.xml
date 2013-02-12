@@ -3,6 +3,7 @@
 
     <string name="app_name">Group Contact Sharing</string>
     <string name="menu_settings">Settings</string>
+    <string name="edit">Edit</string>
     <string name="share">Share</string>
     <string name="sample_name">Firstname Lastname</string>
     <string name="sample_email">firstname.lastname@kth.se</string>
