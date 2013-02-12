@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/identifyGroupTextView"
         android:layout_below="@+id/identifyGroupTextView"
+        android:layout_marginRight="6dp"
+android:button="@drawable/checkbox_selector1"
         android:text="" />
 
     <CheckBox
@@ -29,6 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/checkBox1"
         android:layout_toRightOf="@+id/checkBox1"
+        android:layout_marginRight="6dp"
+android:button="@drawable/checkbox_selector2"
         android:text="" />
 
     <CheckBox
@@ -37,6 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/checkBox2"
         android:layout_toRightOf="@+id/checkBox2"
+        android:layout_marginRight="6dp"
+android:button="@drawable/checkbox_selector3"
         android:text="" />
 
     <CheckBox
@@ -45,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/checkBox3"
         android:layout_toRightOf="@+id/checkBox3"
+        android:layout_marginRight="6dp"
+android:button="@drawable/checkbox_selector4"
         android:text="" />
 
     <CheckBox
@@ -53,6 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/checkBox4"
         android:layout_toRightOf="@+id/checkBox4"
+        android:layout_marginRight="6dp"
+android:button="@drawable/checkbox_selector5"
         android:text="" />
 
     <Button
