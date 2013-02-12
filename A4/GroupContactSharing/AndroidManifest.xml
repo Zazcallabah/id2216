@@ -31,8 +31,8 @@
             android:label="@string/title_activity_identify_group" >
         </activity>
         <activity
-            android:name="se.kth.ict.id2216.groupcontactsharing.ExcludeReceiversActivity"
-            android:label="@string/title_activity_exclude_receivers" >
+            android:name="se.kth.ict.id2216.groupcontactsharing.SelectReceiversActivity"
+            android:label="@string/title_activity_select_receivers" >
         </activity>
         <activity
             android:name="se.kth.ict.id2216.groupcontactsharing.ImportDataActivity"

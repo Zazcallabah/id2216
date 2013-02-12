@@ -23,9 +23,9 @@ public class IdentifyGroupActivity extends Activity {
 
 	public void onJoinGroupButton_Click(View v) {
 
-		android.util.Log.i("onProceedButton_Click", "ok");
+		android.util.Log.i("onJoinGroupButton_Click", "ok");
 		
-		Intent excludeReceivers = new Intent(this, ExcludeReceiversActivity.class);
+		Intent excludeReceivers = new Intent(this, SelectReceiversActivity.class);
 		startActivity(excludeReceivers);
 	}
 

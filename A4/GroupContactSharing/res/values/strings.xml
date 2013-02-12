@@ -19,7 +19,7 @@
     <string name="sample_facebook">Facebook: name123</string>
     <string name="title_activity_edit_data">My contact data</string>
     <string name="title_activity_identify_group">Identify Group</string>
-    <string name="title_activity_exclude_receivers">ExcludeReceiversActivity</string>
+    <string name="title_activity_select_receivers">SelectReceiversActivity</string>
     <string name="title_activity_import_data">ImportDataActivity</string>
 
 </resources>
