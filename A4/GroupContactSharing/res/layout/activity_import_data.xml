@@ -4,4 +4,63 @@
     android:layout_height="match_parent"
     tools:context=".ImportDataActivity" >
 
+    <TextView
+        android:id="@+id/importTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/import_"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <CheckBox
+        android:id="@+id/everythingCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/importTextView"
+        android:layout_below="@+id/importTextView"
+        android:text="@string/everyone"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/other1CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/everythingCheckBox"
+        android:layout_below="@+id/everythingCheckBox"
+        android:text="@string/other1"
+        android:checked="true" />
+
+    <CheckBox
+        android:id="@+id/phoneCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/other1CheckBox"
+        android:layout_below="@+id/other1nameCheckBox"
+        android:text="@string/other2"
+        android:checked="true" />
+
+    <Button
+        android:id="@+id/importButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/phoneCheckBox"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/phoneCheckBox"
+        android:layout_marginRight="20dp"
+        android:onClick="onSendButton_Click"
+        android:text="@string/import_" />
+
+    <CheckBox
+        android:id="@+id/other1nameCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/other1CheckBox"
+        android:layout_below="@+id/other1CheckBox"
+        android:layout_marginLeft="17dp"
+        android:checked="true"
+        android:text="@string/sample_name" />
+
 </RelativeLayout>

@@ -6,6 +6,8 @@
     <string name="edit">Edit</string>
     <string name="share">Share</string>
     <string name="store">Store</string>
+    <string name="send">Send</string>
+    <string name="import_">Import</string>
     <string name="join_group">Join Group</string>
     <string name="my_contact_data">My contact data</string>
     <string name="identify_group">Identify Group</string>
@@ -13,6 +15,9 @@
     <string name="email">Email</string>
     <string name="facebook">Facebook</string>
     <string name="phone">Phone number</string>
+    <string name="everyone">Everyone</string>
+    <string name="other1">Other user 1</string>
+    <string name="other2">Other user 2</string>
     <string name="sample_name">Firstname Lastname</string>
     <string name="sample_email">firstname.lastname@kth.se</string>
     <string name="sample_phone">+46 543 210987</string>
