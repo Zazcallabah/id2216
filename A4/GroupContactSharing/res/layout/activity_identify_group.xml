@@ -1,96 +1,100 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IdentifyGroupActivity">
+    android:orientation="vertical"
+    tools:context=".IdentifyGroupActivity" >
 
-    <TableRow
-        android:id="@+id/tableRow1"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/identifyGroupTextView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
             android:text="@string/identify_group"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
 
         <Button
             android:id="@+id/helpButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_gravity="top|right"
             android:onClick="onQuestionButton_Click"
             android:text="@string/questionmark" />
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:id="@+id/tableRow2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <CheckBox
-            android:id="@+id/checkBox1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_selector1" />
-
-        <CheckBox
-            android:id="@+id/checkBox2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_selector2" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <CheckBox
-            android:id="@+id/checkBox3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_selector3" />
-
-        <CheckBox
-            android:id="@+id/checkBox4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_selector4" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <CheckBox
-            android:id="@+id/checkBox5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/checkbox_selector5" />
-
-    </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/joinGroupButton"
-            android:layout_width="match_parent"
-            android:onClick="onJoinGroupButton_Click"
-            android:text="@string/join_group" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-    </TableRow>
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:button="@drawable/checkbox_selector1" />
 
-</TableLayout>
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:button="@drawable/checkbox_selector2" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBox3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:button="@drawable/checkbox_selector3" />
+
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:button="@drawable/checkbox_selector4" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/checkBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:button="@drawable/checkbox_selector5" />
+
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/joinGroupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|top"
+        android:onClick="onJoinGroupButton_Click"
+        android:text="@string/join_group" />
+
+</LinearLayout>
