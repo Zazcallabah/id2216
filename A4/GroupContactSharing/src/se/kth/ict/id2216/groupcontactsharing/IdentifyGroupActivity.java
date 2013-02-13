@@ -11,13 +11,7 @@ import android.widget.CheckBox;
 
 public class IdentifyGroupActivity extends Activity {
 
- CheckBox chkBox1;
- CheckBox chkBox2;
- CheckBox chkBox3;
- CheckBox chkBox4;
- CheckBox chkBox5;
- 
- private boolean[] checkBoxesChecked = new boolean[5];
+private CheckBox[] checkBoxes;
  
  
  @Override
@@ -25,17 +19,12 @@ public class IdentifyGroupActivity extends Activity {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_identify_group);
   
-  chkBox1 = (CheckBox) findViewById(R.id.checkBox1);
-  chkBox2 = (CheckBox) findViewById(R.id.checkBox2);
-  chkBox3 = (CheckBox) findViewById(R.id.checkBox3);
-  chkBox4 = (CheckBox) findViewById(R.id.checkBox4);
-  chkBox5 = (CheckBox) findViewById(R.id.checkBox5);
+  checkBoxes = new CheckBox[] { (CheckBox) findViewById(R.id.checkBox1),
+ (CheckBox) findViewById(R.id.checkBox2),
+ (CheckBox) findViewById(R.id.checkBox3),
+ (CheckBox) findViewById(R.id.checkBox4),
+   (CheckBox) findViewById(R.id.checkBox5)};
   
-  chkBox1.setOnClickListener(myCheckBoxHandler);
-  chkBox2.setOnClickListener(myCheckBoxHandler);
-  chkBox3.setOnClickListener(myCheckBoxHandler);
-  chkBox4.setOnClickListener(myCheckBoxHandler);
-  chkBox5.setOnClickListener(myCheckBoxHandler);
  }
  
  @Override
@@ -50,8 +39,8 @@ public class IdentifyGroupActivity extends Activity {
   android.util.Log.i("onJoinGroupButton_Click", "ok");
   
   int count = 0;
-  for (boolean b : checkBoxesChecked) {
-   if (b)
+  for (CheckBox b : checkBoxes) {
+   if (b.isChecked())
     count++;
   }
   
@@ -82,37 +71,5 @@ public class IdentifyGroupActivity extends Activity {
       .show();
  }
  
- View.OnClickListener myCheckBoxHandler = new View.OnClickListener() {
-    public void onClick(View v) {
-     int id = -1;
-        if( chkBox1.getId() == ((CheckBox)v).getId() ){
-            id = 1;
-        }
-        else if( chkBox2.getId() == ((CheckBox)v).getId() ){
-            id = 2;
-        }
-        else if( chkBox3.getId() == ((CheckBox)v).getId() ){
-            id = 3;
-        }
-        else if( chkBox4.getId() == ((CheckBox)v).getId() ){
-            id = 4;
-        }
-        else if( chkBox5.getId() == ((CheckBox)v).getId() ){
-            id = 5;
-        }
-        else {
-         id = -1;
-        }
-        
-        if (id != -1) {
-         if (((CheckBox) v).isChecked()) {
-          checkBoxesChecked[id-1] = true;
-         }
-         else {
-          checkBoxesChecked[id-1] = false;
-         }
-        }
-    }
-  };
 
 }

@@ -25,9 +25,7 @@ public class EditDataActivity extends Activity {
 
 		android.util.Log.i("onStoreButton_Click", "ok");
 		
-		// TODO is there any way to go back to previous page?
-		Intent startIntent = new Intent(this, StartActivity.class);
-		startActivity(startIntent);
+		this.finish();
 	}
 
 }
