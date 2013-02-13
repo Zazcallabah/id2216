@@ -57,10 +57,11 @@
         android:id="@+id/importButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/other2CheckBox"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/other2CheckBox"
-        android:layout_marginRight="16dp"
         android:onClick="onImportButton_Click"
         android:text="@string/import_" />
 

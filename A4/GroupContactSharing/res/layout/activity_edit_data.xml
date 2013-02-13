@@ -97,8 +97,10 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/facebookEditText"
-        android:layout_alignRight="@+id/facebookEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_below="@+id/facebookEditText"
         android:text="@string/store"
         android:onClick="onStoreButton_Click" />
