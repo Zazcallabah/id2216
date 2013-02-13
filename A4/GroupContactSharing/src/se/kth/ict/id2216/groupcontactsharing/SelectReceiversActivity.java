@@ -5,13 +5,24 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 
 public class SelectReceiversActivity extends Activity {
+
+	CheckBox everythingCheckBox;
+	CheckBox other1CheckBox;
+	CheckBox other2CheckBox;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_receivers);
+		
+		everythingCheckBox = (CheckBox) findViewById(R.id.nameCheckBox);
+		other1CheckBox = (CheckBox) findViewById(R.id.emailCheckBox);
+		other2CheckBox = (CheckBox) findViewById(R.id.phoneCheckBox);
+
+		everythingCheckBox.setOnClickListener(everythingHandler);
 	}
 
 	@Override
@@ -26,5 +37,13 @@ public class SelectReceiversActivity extends Activity {
 		Intent importDataIntent = new Intent(this, ImportDataActivity.class);
 		startActivity(importDataIntent);
 	}
+
+	View.OnClickListener everythingHandler = new View.OnClickListener() {
+		public void onClick(View v) {
+			boolean b = ((CheckBox) v).isChecked();
+			other1CheckBox.setChecked(b);
+			other2CheckBox.setChecked(b);
+		}
+	};
 
 }
