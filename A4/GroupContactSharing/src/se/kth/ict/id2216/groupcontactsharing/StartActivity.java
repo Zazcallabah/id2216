@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-//import android.view.View.OnClickListener;
-//import android.widget.Button;
 
 public class StartActivity extends Activity /* implements OnClickListener */{
 
@@ -14,11 +12,6 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_start);
-
-		// Button editButton = (Button) this.findViewById(R.id.editButton);
-		// editButton.setOnClickListener(this);
-		//
-		// Button shareButton = (Button) this.findViewById(R.id.shareButton);
 	}
 
 	@Override
