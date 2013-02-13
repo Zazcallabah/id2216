@@ -38,8 +38,6 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 
 	public void onShareButton_Click(View v) {
 
-		android.util.Log.i("onShareButton_Click", "ok");
-
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
 		startActivity(identifyGroup);
 	}
