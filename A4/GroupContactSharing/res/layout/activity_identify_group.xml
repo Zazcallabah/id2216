@@ -5,15 +5,17 @@
     android:orientation="vertical"
     tools:context=".IdentifyGroupActivity" >
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp" >
 
         <TextView
             android:id="@+id/identifyGroupTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="10dp"
             android:text="@string/identify_group"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -22,11 +24,13 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_gravity="top|right"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
             android:onClick="onQuestionButton_Click"
             android:text="@string/questionmark" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -94,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left|top"
+        android:layout_marginTop="30dp"
         android:onClick="onJoinGroupButton_Click"
         android:text="@string/join_group" />
 
