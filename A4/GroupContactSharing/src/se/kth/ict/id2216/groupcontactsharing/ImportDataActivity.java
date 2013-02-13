@@ -10,10 +10,23 @@ import android.widget.RelativeLayout;
 
 public class ImportDataActivity extends Activity {
 
+	CheckBox everythingCheckBox;
+	CheckBox other1CheckBox;
+	CheckBox other2CheckBox;
+	CheckBox other1nameCheckBox;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
+
+		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
+		other1CheckBox = (CheckBox) findViewById(R.id.other1CheckBox);
+		other2CheckBox = (CheckBox) findViewById(R.id.phoneCheckBox);
+		other1nameCheckBox = (CheckBox) findViewById(R.id.other1nameCheckBox);
+
+		everythingCheckBox.setOnClickListener(everythingHandler);
+		other1CheckBox.setOnClickListener(other1Handler);
 	}
 
 	@Override
@@ -32,5 +45,21 @@ public class ImportDataActivity extends Activity {
 		bt.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 		linearLayout.addView(bt);
 	}
+	
+	View.OnClickListener everythingHandler = new View.OnClickListener() {
+		public void onClick(View v) {
+			boolean b = ((CheckBox) v).isChecked();
+			other1CheckBox.setChecked(b);
+			other1nameCheckBox.setChecked(b);
+			other2CheckBox.setChecked(b);
+		}
+	};
+
+	View.OnClickListener other1Handler = new View.OnClickListener() {
+		public void onClick(View v) {
+			boolean b = ((CheckBox) v).isChecked();
+			other1nameCheckBox.setChecked(b);
+		}
+	};
 
 }
