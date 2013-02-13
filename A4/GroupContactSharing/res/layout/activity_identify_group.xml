@@ -11,16 +11,39 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="@string/identify_group"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/helpButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:onClick="onQuestionButton_Click"
+        android:text="@string/questionmark" />
+
+    <TextView
+        android:id="@+id/identifyGroupInstructionsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/identifyGroupTextView"
+        android:layout_below="@+id/identifyGroupTextView"
+        android:layout_marginTop="10dp"
+        android:text="@string/identify_group_explanation"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/identifyGroupTextView"
-        android:layout_below="@+id/identifyGroupTextView"
+        android:layout_alignLeft="@+id/identifyGroupInstructionsTextView"
+        android:layout_below="@+id/identifyGroupInstructionsTextView"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="6dp"
 android:button="@drawable/checkbox_selector1"
         android:text="" />
@@ -72,17 +95,7 @@ android:button="@drawable/checkbox_selector5"
         android:layout_alignLeft="@+id/checkBox1"
         android:layout_below="@+id/checkBox5"
         android:text="@string/join_group"
+        android:layout_marginTop="10dp"
         android:onClick="onJoinGroupButton_Click" />
-
-    <Button
-        android:id="@+id/button1"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/joinGroupButton"
-        android:layout_below="@+id/joinGroupButton"
-        android:layout_marginTop="34dp"
-        android:onClick="onQuestionButton_Click"
-        android:text="@string/questionmark" />
 
 </RelativeLayout>
