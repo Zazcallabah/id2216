@@ -23,7 +23,7 @@ public class ImportDataActivity extends Activity {
 
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		other1CheckBox = (CheckBox) findViewById(R.id.other1CheckBox);
-		other2CheckBox = (CheckBox) findViewById(R.id.phoneCheckBox);
+		other2CheckBox = (CheckBox) findViewById(R.id.other2CheckBox);
 		other1nameCheckBox = (CheckBox) findViewById(R.id.other1nameCheckBox);
 
 		everythingCheckBox.setOnClickListener(everythingHandler);
