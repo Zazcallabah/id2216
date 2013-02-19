@@ -73,7 +73,10 @@ public class ImportDataActivity extends Activity {
 	        });
 		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.BELOW, otherList.get(otherList.size()-1).getId());
+		if (otherList.isEmpty())
+			params.addRule(RelativeLayout.BELOW, everythingCheckBox.getId());
+		else
+			params.addRule(RelativeLayout.BELOW, otherList.get(otherList.size()-1).getId());
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
 		params.setMargins(30, 0, 30, 0);
