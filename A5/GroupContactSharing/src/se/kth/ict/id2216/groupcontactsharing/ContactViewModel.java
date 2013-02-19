@@ -28,6 +28,7 @@ public class ContactViewModel  {
 	{
 		this.setName(source.getName());
 		this.setEmail(source.getEmail());
+		this.setPhone(source.getPhone());
 
 	}
 	

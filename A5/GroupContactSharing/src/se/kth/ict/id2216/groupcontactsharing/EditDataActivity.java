@@ -3,6 +3,7 @@ package se.kth.ict.id2216.groupcontactsharing;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -25,8 +26,8 @@ private EditText name;
 		setContentView(R.layout.activity_edit_data);
 		 email =(EditText)findViewById(R.id.emailEditText); 
 
- name =(EditText)findViewById(R.id.nameEditText); 
 		 phone =(EditText)findViewById(R.id.phoneEditText); 
+		 name =(EditText)findViewById(R.id.nameEditText); 
 	    email.setText(_model.getEmail());
 	    name.setText(_model.getName());
 	    phone.setText(_model.getPhone());
@@ -43,10 +44,16 @@ private EditText name;
 
 		android.util.Log.i("onStoreButton_Click", "ok");
 		
-		_model.setName(name.getText().toString());
-		_model.setEmail(email.getText().toString());
-		_model.setPhone(phone.getText().toString());
-		
+		Editable n = name.getText();
+		String tn = n.toString();
+		_model.setName(tn);
+		Editable e = email.getText();
+		String te = e.toString();
+		_model.setEmail(te);
+		Editable p = phone.getText();
+		String tp = p.toString();
+		_model.setPhone(tp);
+		_model.save(this);
 		this.finish();
 	}
 	public void onCancelButton_Click(View v) {

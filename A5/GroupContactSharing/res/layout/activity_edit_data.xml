@@ -31,8 +31,7 @@
         android:layout_alignLeft="@+id/nameTextView"
         android:layout_below="@+id/nameTextView"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/sample_name">
+        android:inputType="textPersonName">
         <requestFocus />
     </EditText>
 
@@ -52,8 +51,7 @@
         android:layout_alignLeft="@+id/emailTextView"
         android:layout_below="@+id/emailTextView"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="@string/sample_email" />
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:id="@+id/phoneTextView"
@@ -71,38 +69,28 @@
         android:layout_alignLeft="@+id/phoneTextView"
         android:layout_below="@+id/phoneTextView"
         android:ems="10"
-        android:inputType="phone"
-        android:text="@string/sample_phone" />
-
-    <TextView
-        android:id="@+id/facebookTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/phoneEditText"
-        android:layout_below="@+id/phoneEditText"
-        android:text="@string/facebook"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <EditText
-        android:id="@+id/facebookEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/facebookTextView"
-        android:layout_below="@+id/facebookTextView"
-        android:inputType="text"
-        android:ems="10"
-        android:text="@string/sample_facebook" />
+        android:inputType="phone" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/phoneEditText"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/facebookEditText"
-        android:text="@string/store"
-        android:onClick="onStoreButton_Click" />
+        android:onClick="onStoreButton_Click"
+        android:text="@string/store" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/saveButton"
+        android:layout_alignRight="@+id/saveButton"
+        android:layout_below="@+id/saveButton"
+        android:onClick="onCancelButton_Click"
+        android:text="@string/cancel" />
 
 </RelativeLayout>
