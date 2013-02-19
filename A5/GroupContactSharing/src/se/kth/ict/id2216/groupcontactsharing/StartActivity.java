@@ -5,11 +5,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.CheckBox;
 
 public class StartActivity extends Activity /* implements OnClickListener */{
 
 	private ContactViewModel _model;
-
+private CheckBox email;
+private CheckBox name;
+private CheckBox phone;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -17,10 +20,20 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 		_model = myApp.getModel();
  
 		setContentView(R.layout.activity_start);
+		
+		email =(CheckBox)findViewById(R.id.emailCheckBox); 
+		 phone =(CheckBox)findViewById(R.id.phoneCheckBox); 
+		 name =(CheckBox)findViewById(R.id.nameCheckBox); 
+
 	}
 	void refresh ()
 	{
-		//set fields from model
+		name.setChecked(_model.isNameSelected());
+		phone.setChecked(_model.isPhoneSelected());
+		email.setChecked(_model.isEmailSelected());
+		name.setText( _model.getName() );
+		phone.setText( _model.getPhone() );
+		email.setText( _model.getEmail() );
 	}
 	@Override
 	protected void onStart(){
@@ -52,6 +65,9 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 
 	public void onShareButton_Click(View v) {
 
+		_model.setNameSelected(name.isChecked());
+		_model.setEmailSelected(email.isChecked());
+		_model.setPhoneSelected(phone.isChecked());
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
 	
 		startActivity(identifyGroup);

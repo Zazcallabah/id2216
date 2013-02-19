@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/nameTextView"
         android:layout_below="@+id/nameTextView"
-        android:text="@string/sample_name"
         android:checked="true" />
 
     <CheckBox
@@ -30,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/nameCheckBox"
         android:layout_below="@+id/nameCheckBox"
-        android:text="@string/sample_email"
         android:checked="true" />
 
     <CheckBox
@@ -39,16 +37,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/emailCheckBox"
         android:layout_below="@+id/emailCheckBox"
-        android:text="@string/sample_phone"
-        android:checked="true" />
-
-    <CheckBox
-        android:id="@+id/facebookCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/phoneCheckBox"
-        android:layout_below="@+id/phoneCheckBox"
-        android:text="@string/sample_facebook"
         android:checked="true" />
 
     <Button
@@ -57,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/phoneCheckBox"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/facebookCheckBox"
         android:onClick="onEditButton_Click"
         android:text="@string/edit" />
 

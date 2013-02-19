@@ -2,7 +2,6 @@ package se.kth.ict.id2216.groupcontactsharing;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.View;

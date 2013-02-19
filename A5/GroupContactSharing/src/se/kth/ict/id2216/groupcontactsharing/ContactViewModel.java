@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +18,10 @@ public class ContactViewModel  {
 	private String name = "";
 	private String email = "";
 	private String phone = "";
+	private boolean nameSelected = true;
+	private boolean emailSelected = true;
+	private boolean phoneSelected = true;
+	
 
 	public ContactViewModel()
 	{
@@ -29,7 +32,10 @@ public class ContactViewModel  {
 		this.setName(source.getName());
 		this.setEmail(source.getEmail());
 		this.setPhone(source.getPhone());
-
+		
+		nameSelected=source.nameSelected;
+		emailSelected=source.emailSelected;
+		phoneSelected=source.phoneSelected;
 	}
 	
 	public void save( Activity act )
@@ -73,7 +79,11 @@ public class ContactViewModel  {
 	private static Gson _gson = new Gson();
 	public static ContactViewModel CreateViewModelFromJson( String json )
 	{
+		try{
 	 return	_gson.fromJson(json, ContactViewModel.class);
+		}catch(Exception e){
+			return new ContactViewModel();
+		}
 	}
 	
 	public String Serialize()
@@ -105,5 +115,27 @@ public class ContactViewModel  {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isNameSelected() {
+		return nameSelected;
+	}
+
+	public void setNameSelected(boolean nameSelected) {
+		this.nameSelected = nameSelected;
+	}
+	public boolean isEmailSelected() {
+		return emailSelected;
+	}
+
+	public void setEmailSelected(boolean emailSelected) {
+		this.emailSelected = emailSelected;
+	}
+	public boolean isPhoneSelected() {
+		return phoneSelected;
+	}
+
+	public void setPhoneSelected(boolean phoneSelected) {
+		this.phoneSelected = phoneSelected;
 	}
 }
