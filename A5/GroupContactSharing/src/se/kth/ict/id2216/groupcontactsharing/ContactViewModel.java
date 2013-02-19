@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.w3c.dom.CDATASection;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +27,7 @@ public class ContactViewModel  {
 	private boolean nameSelected = true;
 	private boolean emailSelected = true;
 	private boolean phoneSelected = true;
-	
+	public List<ContactDetails> _remoteData = new LinkedList<ContactDetails>();
 
 	public ContactViewModel()
 	{
@@ -57,27 +61,17 @@ public class ContactViewModel  {
 	
 	public void restore( Activity act )
 	{
-		StringBuilder data = new StringBuilder() ;
-        try {
-            FileInputStream fIn = act.openFileInput ( StorageLocation ) ;
-            InputStreamReader isr = new InputStreamReader ( fIn ,"UTF-8") ;
-            BufferedReader buffreader = new BufferedReader ( isr ) ;
+			try {
+	            FileInputStream fIn;
+				fIn = act.openFileInput ( StorageLocation );
+	            JsonReader jr = new JsonReader(fIn);
+	            setFields(jr.get( ContactViewModel.class ));
+			} catch (FileNotFoundException e) {
 
-            String readString = buffreader.readLine ( ) ;
-            while ( readString != null ) {
-               data.append(readString);
-               data.append('\n');
-                readString = buffreader.readLine ( ) ;
-            }
-
-            isr.close ( ) ;
-            setFields( CreateViewModelFromJson(data.toString()));
-        } catch ( IOException ioe ) {
-            ioe.printStackTrace ( ) ;
-        }
-        
-        
+				e.printStackTrace();
+			}
 	}
+	
 	private static Gson _gson = new Gson();
 	public static ContactViewModel CreateViewModelFromJson( String json )
 	{
@@ -153,6 +147,27 @@ public class ContactViewModel  {
 		if( id == null )
 			id = java.util.UUID.randomUUID().toString();
 		return id;
+	}
+
+	public void mergeContacts(List<ContactDetails> list) {
+		for(ContactDetails cd : list)
+		{
+			boolean isnew = true;
+			for( ContactDetails existing: _remoteData)
+			{
+				if( existing.id == cd.id )
+				{
+					isnew=false;
+					break;
+				}
+			}
+			if( isnew )
+			{
+				_remoteData.add(cd);
+				// fire some kind of property changed event
+			}
+		}
+		
 	}
 
 }

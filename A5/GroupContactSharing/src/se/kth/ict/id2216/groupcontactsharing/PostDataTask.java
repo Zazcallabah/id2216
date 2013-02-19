@@ -18,7 +18,7 @@ public class PostDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> 
 	private HttpResponse send( String label, HttpEntity payload ) throws ClientProtocolException, IOException
 	{
     	HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://130.229.191.26:8888/api/"+label);
+        HttpPost httppost = new HttpPost("http://tmp.prefect.se:8888/api/"+label);
         httppost.setEntity(payload );
 	return  httpclient.execute(httppost);
 	}
