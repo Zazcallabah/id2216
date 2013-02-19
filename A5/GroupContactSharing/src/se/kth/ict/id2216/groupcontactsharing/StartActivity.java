@@ -8,9 +8,14 @@ import android.view.View;
 
 public class StartActivity extends Activity /* implements OnClickListener */{
 
+	private ContactViewModel _model;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+		_model = myApp.getModel();
+ 
 		setContentView(R.layout.activity_start);
 	}
 
