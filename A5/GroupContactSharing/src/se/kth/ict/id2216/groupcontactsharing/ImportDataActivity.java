@@ -1,5 +1,8 @@
 package se.kth.ict.id2216.groupcontactsharing;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -11,23 +14,30 @@ import android.widget.RelativeLayout;
 
 public class ImportDataActivity extends Activity {
 
+	List<Other> otherList = new ArrayList<Other>();
+	
 	CheckBox everythingCheckBox;
-	CheckBox other1CheckBox;
-	CheckBox other2CheckBox;
-	CheckBox other1nameCheckBox;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
 
+		RelativeLayout rel = (RelativeLayout)findViewById(R.id.importDataLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
-		other1CheckBox = (CheckBox) findViewById(R.id.other1CheckBox);
-		other2CheckBox = (CheckBox) findViewById(R.id.other2CheckBox);
-		other1nameCheckBox = (CheckBox) findViewById(R.id.other1nameCheckBox);
-
 		everythingCheckBox.setOnClickListener(everythingHandler);
-		other1CheckBox.setOnClickListener(other1Handler);
+		
+		Other o = new Other("name", rel, everythingCheckBox.getId(), everythingCheckBox.getId());
+		o.addCheckBox("fb: fbName");
+		o.addCheckBox("skype: skypeName");
+		o.addCheckBox("whattsapp: wa");
+		otherList.add(o);
+		
+		Other o2 = new Other("name", rel, o.getId(), everythingCheckBox.getId());
+		o2.addCheckBox("fb: fbName2");
+		o2.addCheckBox("skype: skypeName2");
+		o2.addCheckBox("whattsapp: wa2");
+		otherList.add(o2);
 	}
 
 	@Override
@@ -47,20 +57,81 @@ public class ImportDataActivity extends Activity {
 		linearLayout.addView(bt);
 	}
 	
+	
+	
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
 			boolean b = ((CheckBox) v).isChecked();
-			other1CheckBox.setChecked(b);
-			other1nameCheckBox.setChecked(b);
-			other2CheckBox.setChecked(b);
+			for (Other other : otherList)
+				other.setChecked(b);
+			
 		}
 	};
 
-	View.OnClickListener other1Handler = new View.OnClickListener() {
-		public void onClick(View v) {
-			boolean b = ((CheckBox) v).isChecked();
-			other1nameCheckBox.setChecked(b);
-		}
-	};
+}
 
+class Other implements View.OnClickListener{
+	
+	private static int id = 1;
+	
+	private RelativeLayout rel;
+	private CheckBox cbName;
+
+	private List<CheckBox> cbList = new ArrayList<CheckBox>();
+	
+	public Other(String name, RelativeLayout rel, int relativeToBelow, int relativeToLeft) {
+		this.rel = rel;
+		cbName = new CheckBox(rel.getContext());
+		cbName.setText(name);
+		cbName.setChecked(true);
+		cbName.setId(id++);
+		cbName.setOnClickListener(this);
+		
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.BELOW, relativeToBelow);
+		params.addRule(RelativeLayout.ALIGN_LEFT, relativeToLeft);
+		cbName.setLayoutParams(params);
+		
+		rel.addView(cbName);
+	}
+	
+	@Override
+	public void onClick(View v) {
+		boolean b = ((CheckBox) v).isChecked();
+		setChecked(b);
+	}
+	
+	public void addCheckBox(String text) {
+		CheckBox newCheckBox = new CheckBox(rel.getContext());
+		newCheckBox.setText(text);
+		newCheckBox.setId(id++);
+		newCheckBox.setChecked(true);
+		
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		if (cbList.isEmpty()) {
+			params.addRule(RelativeLayout.BELOW, cbName.getId());
+			params.addRule(RelativeLayout.ALIGN_LEFT, cbName.getId());
+			params.setMargins(30, 0, 0, 0);
+		}
+		else {
+			CheckBox relTo = cbList.get(cbList.size()-1);
+			params.addRule(RelativeLayout.BELOW, relTo.getId());
+			params.addRule(RelativeLayout.ALIGN_LEFT, relTo.getId());
+		}
+		newCheckBox.setLayoutParams(params);
+		
+		cbList.add(newCheckBox);
+		rel.addView(newCheckBox);
+	}
+	
+	public void setChecked(boolean b) {
+		cbName.setChecked(b);
+		for (CheckBox cb : cbList)
+			cb.setChecked(b);
+	}
+	
+	public int getId() {
+		return id-1;
+	}
+	
 }

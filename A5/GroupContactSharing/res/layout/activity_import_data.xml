@@ -25,60 +25,7 @@
         android:text="@string/everyone"
         android:checked="true" />
 
-    <CheckBox
-        android:id="@+id/other1CheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/everythingCheckBox"
-        android:layout_below="@+id/everythingCheckBox"
-        android:text="@string/other1"
-        android:checked="true" />
-
-    <CheckBox
-        android:id="@+id/other1nameCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/other1CheckBox"
-        android:layout_below="@+id/other1CheckBox"
-        android:layout_marginLeft="17dp"
-        android:checked="true"
-        android:text="@string/sample_name" />
-
-    <CheckBox
-        android:id="@+id/CheckBox03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/other1nameCheckBox"
-        android:layout_below="@+id/other1nameCheckBox"
-        android:checked="true"
-        android:text="@string/sample_email" />
-
-    <CheckBox
-        android:id="@+id/CheckBox01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/CheckBox03"
-        android:layout_below="@+id/CheckBox03"
-        android:checked="true"
-        android:text="@string/sample_phone" />
-
-    <CheckBox
-        android:id="@+id/other2CheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/other1CheckBox"
-        android:layout_below="@+id/CheckBox01"
-        android:checked="true"
-        android:text="@string/other2" />
-
-    <CheckBox
-        android:id="@+id/CheckBox02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/CheckBox01"
-        android:layout_below="@+id/other2CheckBox"
-        android:checked="true"
-        android:text="@string/sample_facebook" />
+    
 
     <Button
         android:id="@+id/importButton"
