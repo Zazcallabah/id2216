@@ -28,5 +28,6 @@
     <string name="title_activity_select_receivers">SelectReceiversActivity</string>
     <string name="title_activity_import_data">ImportDataActivity</string>
     <string name="questionmark">"?"</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

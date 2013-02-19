@@ -16,8 +16,9 @@ import com.google.gson.Gson;
 public class ContactViewModel  {
 	private static String StorageLocation = "Contact_Data.json";
 	
-	private String name;
-	private String email;
+	private String name = "";
+	private String email = "";
+	private String phone = "";
 
 	public ContactViewModel()
 	{
@@ -25,8 +26,8 @@ public class ContactViewModel  {
 	
 	void setFields( ContactViewModel source )
 	{
-		this.name = source.name;
-		this.email = source.email;
+		this.setName(source.getName());
+		this.setEmail(source.getEmail());
 
 	}
 	
@@ -77,5 +78,31 @@ public class ContactViewModel  {
 	public String Serialize()
 	{
 		return _gson.toJson( this );
+	}
+
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
