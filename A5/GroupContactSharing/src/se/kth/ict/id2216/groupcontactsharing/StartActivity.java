@@ -18,6 +18,22 @@ public class StartActivity extends Activity /* implements OnClickListener */{
  
 		setContentView(R.layout.activity_start);
 	}
+	void refresh ()
+	{
+		//set fields from model
+	}
+	@Override
+	protected void onStart(){
+		super.onStart();
+		_model.restore(this);
+		refresh();
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		_model.save( this );		
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -37,6 +53,7 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 	public void onShareButton_Click(View v) {
 
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
+	
 		startActivity(identifyGroup);
 	}
 
