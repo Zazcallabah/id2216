@@ -25,18 +25,4 @@
         android:text="@string/everyone"
         android:checked="true" />
 
-    
-
-    <Button
-        android:id="@+id/importButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/CheckBox02"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:onClick="onImportButton_Click"
-        android:text="@string/import_" />
-
 </RelativeLayout>
