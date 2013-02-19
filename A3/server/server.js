@@ -1,5 +1,37 @@
 var storage = {};
 
+var halt=false;
+
+// prune daemon
+(function remove_old_entries(){
+	halt=true;
+		for(var key in storage)
+		{
+			if( storage.hasOwnProperty( key ) )
+			{
+				var l = storage[key];
+				var newlist = [];
+				var timestamp = new Date().getTime();
+				for( var entry in l )
+				{
+					if( l.hasOwnProperty( entry ) )
+					{
+						if( l[entry].timestamp + 1000 * 60 * 5 > timestamp )
+						{
+							newlist.push( l[entry] );
+						}
+					}
+				}
+				
+				storage[key]=newlist;
+			}
+		}
+
+	halt=false;
+
+	setTimeout( remove_old_entries, 1000 * 60 ); // wait a minute
+})();
+
 // web server paste
 var http = require("http"),
     url = require("url"),
@@ -22,9 +54,16 @@ var requesthandler = function( request, response ) {
 			request.on('end', function() {
 				if(!storage.hasOwnProperty(label))
 					storage[label] = [];
-				storage[label].push( JSON.parse(data) );
-				console.log( "["+label+"] stored "+data );
-				response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+				if( halt )
+				{
+					response.writeHead( 503, "Wait for gc", { 'Retry-After': 1 } );
+				}
+				else
+				{
+					storage[label].push( { timestamp: new Date().getTime(), data: data } );
+					console.log( "["+label+"] stored "+data );
+					response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+				}
 				response.end();
 			});
 		} else {
@@ -32,13 +71,19 @@ var requesthandler = function( request, response ) {
 
 			if(storage.hasOwnProperty(label))
 			{
-			var arr = JSON.stringify(storage[label]);
-			console.log("["+label+"] fetched " + arr);
-				response.write(arr);
+				var arr = storage[label];
+				var parsed = [];
+				for( var i = 0; i< arr.length; i++ )
+				{
+					parsed.push(JSON.parse(arr[i].data));
+				}
+				var str = JSON.stringify( parsed );
+				console.log("["+label+"] fetched " + str);
+				response.write(str);
 			}
 			else
 			{
-			response.write("[]");
+				response.write("[]");
 			}
 			response.end();
 			return;
@@ -78,9 +123,3 @@ var requesthandler = function( request, response ) {
 http.createServer( requesthandler ).listen(parseInt(port, 10));
 
 console.log("Static file server running at\n  => http://localhost:" + port + "/\nCTRL + C to shutdown");
-
-process.stdin.resume();
-process.stdin.setEncoding('utf8');
-process.stdin.on('data', function (chunk) {
-	current_state = chunk;
-});
