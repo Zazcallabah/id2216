@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 public class IdentifyGroupActivity extends Activity {
 
 private CheckBox[] checkBoxes;
- 
+ private ContactViewModel _model;
  
  @Override
  protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,9 @@ private CheckBox[] checkBoxes;
  (CheckBox) findViewById(R.id.checkBox4),
    (CheckBox) findViewById(R.id.checkBox5)};
   
+	GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+	_model = myApp.getModel();
+
  }
  
  @Override
@@ -38,14 +41,19 @@ private CheckBox[] checkBoxes;
 
   android.util.Log.i("onJoinGroupButton_Click", "ok");
   
+  String label = "";
   int count = 0;
   for (CheckBox b : checkBoxes) {
    if (b.isChecked())
-    count++;
+   {
+	   count++;
+	   	label+=b.getId();
+   }
   }
-  
   if (count >= 1) {
-   Intent excludeReceivers = new Intent(this, SelectReceiversActivity.class);
+	  _model.setLabel(label);
+	  new PostDataTask().execute(_model);
+			  Intent excludeReceivers = new Intent(this, SelectReceiversActivity.class);
    startActivity(excludeReceivers);
   }
   else {

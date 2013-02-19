@@ -18,6 +18,7 @@ public class ContactViewModel  {
 	private String name = "";
 	private String email = "";
 	private String phone = "";
+	private String label = "";
 	private boolean nameSelected = true;
 	private boolean emailSelected = true;
 	private boolean phoneSelected = true;
@@ -137,5 +138,13 @@ public class ContactViewModel  {
 
 	public void setPhoneSelected(boolean phoneSelected) {
 		this.phoneSelected = phoneSelected;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 }
