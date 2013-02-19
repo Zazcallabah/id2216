@@ -61,11 +61,11 @@ public class ContactViewModel  {
             }
 
             isr.close ( ) ;
+            setFields( CreateViewModelFromJson(data.toString()));
         } catch ( IOException ioe ) {
             ioe.printStackTrace ( ) ;
         }
         
-        setFields( CreateViewModelFromJson(data.toString()));
         
 	}
 	private static Gson _gson = new Gson();
