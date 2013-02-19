@@ -16,6 +16,7 @@ public class ContactViewModel  {
 	private static String StorageLocation = "Contact_Data.json";
 	
 	private String name = "";
+	private String id = null;
 	private String email = "";
 	private String phone = "";
 	private String label = "";
@@ -33,7 +34,7 @@ public class ContactViewModel  {
 		this.setName(source.getName());
 		this.setEmail(source.getEmail());
 		this.setPhone(source.getPhone());
-		
+		this.getId();
 		nameSelected=source.nameSelected;
 		emailSelected=source.emailSelected;
 		phoneSelected=source.phoneSelected;
@@ -147,4 +148,11 @@ public class ContactViewModel  {
 	public void setLabel(String label) {
 		this.label = label;
 	}
+
+	public String getId() {
+		if( id == null )
+			id = java.util.UUID.randomUUID().toString();
+		return id;
+	}
+
 }
