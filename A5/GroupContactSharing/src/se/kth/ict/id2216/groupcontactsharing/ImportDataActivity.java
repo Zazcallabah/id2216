@@ -5,8 +5,10 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,6 +18,7 @@ public class ImportDataActivity extends Activity {
 
 	List<Other> otherList = new ArrayList<Other>();
 	
+	RelativeLayout rel;
 	CheckBox everythingCheckBox;
 
 	@Override
@@ -23,21 +26,12 @@ public class ImportDataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
 
-		RelativeLayout rel = (RelativeLayout)findViewById(R.id.importDataLayout);
+		rel = (RelativeLayout)findViewById(R.id.importDataLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 		
-		Other o = new Other("name", rel, everythingCheckBox.getId(), everythingCheckBox.getId());
-		o.addCheckBox("fb: fbName");
-		o.addCheckBox("skype: skypeName");
-		o.addCheckBox("whattsapp: wa");
-		otherList.add(o);
-		
-		Other o2 = new Other("name", rel, o.getId(), everythingCheckBox.getId());
-		o2.addCheckBox("fb: fbName2");
-		o2.addCheckBox("skype: skypeName2");
-		o2.addCheckBox("whattsapp: wa2");
-		otherList.add(o2);
+		createCheckBoxes();
+		createImportButton();
 	}
 
 	@Override
@@ -47,17 +41,46 @@ public class ImportDataActivity extends Activity {
 		return true;
 	}
 
-	public void onImportButton_Click(View v) {
-
-		// add new checkboxes
-		RelativeLayout linearLayout = (RelativeLayout) findViewById(R.id.importDataLayout);
-		Button bt = new Button(this);
-		bt.setText("A Button");
-		bt.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-		linearLayout.addView(bt);
+	private void createCheckBoxes() {
+		Other o = new Other("name", rel, everythingCheckBox.getId(), everythingCheckBox.getId());
+		o.addCheckBox("fb: fbName");
+		o.addCheckBox("skype: skypeName");
+		o.addCheckBox("whattsapp: wa");
+		otherList.add(o);
+		
+		Other o2 = new Other("name", rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
+		o2.addCheckBox("fb: fbName2");
+		o2.addCheckBox("skype: skypeName2");
+		o2.addCheckBox("whattsapp: wa2");
+		otherList.add(o2);
 	}
 	
-	
+	private void createImportButton() {
+		Button importButton = new Button(this);
+		importButton.setText(R.string.import_);
+		importButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+	        public void onClick(View btn) {
+	    		// add new checkboxes
+	    		//RelativeLayout linearLayout = (RelativeLayout) findViewById(R.id.importDataLayout);
+	    		Button bt = new Button(btn.getContext());
+	    		bt.setText("A Button");
+	    		bt.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+	    		rel.addView(bt);
+	        
+	        }
+	        });
+		
+		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.BELOW, otherList.get(otherList.size()-1).getId());
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
+		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+		params.setMargins(30, 0, 30, 0);
+		
+		importButton.setLayoutParams(params);
+		rel.addView(importButton);
+	}
 	
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
