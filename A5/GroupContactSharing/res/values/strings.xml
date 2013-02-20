@@ -10,7 +10,7 @@
     <string name="import_">Import</string>
     <string name="join_group">Join Group</string>
     <string name="my_contact_data">My contact data</string>
-    <string name="identify_group">Choose group identifier</string>
+    <string name="identify_group">Choose group identifiers</string>
     <string name="identify_group_explanation">bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -24,9 +24,9 @@
     <string name="sample_phone">+46 543 210987</string>
     <string name="sample_facebook">Facebook: name123</string>
     <string name="title_activity_edit_data">My contact data</string>
-    <string name="title_activity_identify_group">Identify Group</string>
-    <string name="title_activity_select_receivers">SelectReceiversActivity</string>
-    <string name="title_activity_import_data">ImportDataActivity</string>
+    <string name="title_activity_identify_group">Choose group</string>
+    <string name="title_activity_select_receivers">Select contacts</string>
+    <string name="title_activity_import_data">Import contact data</string>
     <string name="questionmark">"?"</string>
     <string name="cancel">Cancel</string>
     <string name="fullname">Full name</string>
