@@ -2,15 +2,15 @@ var storage = {
 "/2131165199": [
 	{
 	timestamp: (new Date().getTime())+1000*3600, 
-	data: "{\"id\":\"aa4a8552-61c3-408c-add6-daf6d6a2d910\",\"name\":\"John\",\"phone\":\"9999999\"}"
+	data: "{\"id\":\"aa4a8552-61c3-408c-add6-daf6d6a2d910\",\"displayname\":\"John\",\"fullname\":\"John Spartan\",\"phone\":\"9999999\"}"
 	},
 	{
 	timestamp: (new Date().getTime())+1000*3600,
-	data: "{\"id\":\"da4a8612-81c3-408c-add6-daf6d6a2d910\",\"name\":\"mike\",\"email\":\"mike@data.tmp\"}"
+	data: "{\"id\":\"da4a8612-81c3-408c-add6-daf6d6a2d910\",\"displayname\":\"mike\",\"email\":\"mike@data.tmp\"}"
 	},
 	{
 	timestamp: (new Date().getTime())+1000*3600, 
-	data: "{\"id\":\"5a4a8722-91c3-408c-add6-daf6d6a2d910\",\"name\":\"dave\",\"phone\":\"123 44 22\",\"email\":\"d@test.org\"}"
+	data: "{\"id\":\"5a4a8722-91c3-408c-add6-daf6d6a2d910\",\"displayname\":\"dave\",\"fullname\":\"David Davidson\",\"phone\":\"123 44 22\",\"email\":\"d@test.org\"}"
 	},
 ]
 };
