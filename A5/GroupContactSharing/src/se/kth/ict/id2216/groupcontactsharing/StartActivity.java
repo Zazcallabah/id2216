@@ -1,18 +1,23 @@
 package se.kth.ict.id2216.groupcontactsharing;
 
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 public class StartActivity extends Activity /* implements OnClickListener */{
 
 	private ContactViewModel _model;
 	private CheckBox email;
-	private CheckBox name;
+	private CheckBox fullname;
 	private CheckBox phone;
+	private TextView displayname;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,21 +25,34 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 		_model = myApp.getModel();
 
 		setContentView(R.layout.activity_start);
-
+		Button b = (Button)findViewById(R.id.shareButton);
+		b.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		email =(CheckBox)findViewById(R.id.emailCheckBox); 
+		displayname =(TextView)findViewById(R.id.displayNameTextView); 
 		phone =(CheckBox)findViewById(R.id.phoneCheckBox); 
-		name =(CheckBox)findViewById(R.id.nameCheckBox); 
+		fullname =(CheckBox)findViewById(R.id.nameCheckBox); 
 
 	}
+	
 	void refresh ()
 	{
-		name.setChecked(_model.isNameSelected());
+		fullname.setChecked(_model.isFullNameSelected());
 		phone.setChecked(_model.isPhoneSelected());
 		email.setChecked(_model.isEmailSelected());
-		name.setText( _model.getName() );
-		phone.setText( _model.getPhone() );
-		email.setText( _model.getEmail() );
+		
+		fullname.setText( parseText(_model.getFullName() ));
+		phone.setText(parseText( _model.getPhone()) );
+		email.setText( parseText(_model.getEmail() ));
+		displayname.setText(parseText( _model.getDisplayName() ));
 	}
+	
+	String parseText( String text )
+	{
+		if( text == null || text.length()==0)
+			return "[Empty]";
+		else return text;
+	}
+
 	@Override
 	protected void onStart(){
 		super.onStart();
@@ -65,7 +83,7 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 
 	public void onShareButton_Click(View v) {
 
-		_model.setNameSelected(name.isChecked());
+		_model.setFullNameSelected(fullname.isChecked());
 		_model.setEmailSelected(email.isChecked());
 		_model.setPhoneSelected(phone.isChecked());
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
