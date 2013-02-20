@@ -10,7 +10,7 @@
     <string name="import_">Import</string>
     <string name="join_group">Join Group</string>
     <string name="my_contact_data">My contact data</string>
-    <string name="identify_group">Identify Group</string>
+    <string name="identify_group">Choose group identifier</string>
     <string name="identify_group_explanation">bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
@@ -29,5 +29,8 @@
     <string name="title_activity_import_data">ImportDataActivity</string>
     <string name="questionmark">"?"</string>
     <string name="cancel">Cancel</string>
+    <string name="fullname">Full name</string>
+    <string name="others">These are the other users in your group</string>
+    <string name="refresh">Refresh</string>
 
 </resources>
