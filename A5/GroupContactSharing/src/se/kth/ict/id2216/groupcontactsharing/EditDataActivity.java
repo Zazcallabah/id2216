@@ -9,13 +9,13 @@ import android.widget.EditText;
 
 public class EditDataActivity extends Activity {
 
-	
+
 
 	private ContactViewModel _model;
-private EditText email;
-private EditText phone;
-private EditText name;
- 
+	private EditText email;
+	private EditText phone;
+	private EditText name;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,13 +23,13 @@ private EditText name;
 		_model = myApp.getModel();
 
 		setContentView(R.layout.activity_edit_data);
-		 email =(EditText)findViewById(R.id.emailEditText); 
+		email =(EditText)findViewById(R.id.emailEditText); 
 
-		 phone =(EditText)findViewById(R.id.phoneEditText); 
-		 name =(EditText)findViewById(R.id.nameEditText); 
-	    email.setText(_model.getEmail());
-	    name.setText(_model.getName());
-	    phone.setText(_model.getPhone());
+		phone =(EditText)findViewById(R.id.phoneEditText); 
+		name =(EditText)findViewById(R.id.nameEditText); 
+		email.setText(_model.getEmail());
+		name.setText(_model.getName());
+		phone.setText(_model.getPhone());
 	}
 
 	@Override
@@ -42,7 +42,7 @@ private EditText name;
 	public void onStoreButton_Click(View v) {
 
 		android.util.Log.i("onStoreButton_Click", "ok");
-		
+
 		Editable n = name.getText();
 		String tn = n.toString();
 		_model.setName(tn);
@@ -58,7 +58,7 @@ private EditText name;
 	public void onCancelButton_Click(View v) {
 
 		android.util.Log.i("onCancelButton_Click", "ok");
-		
+
 		this.finish();
 	}
 
