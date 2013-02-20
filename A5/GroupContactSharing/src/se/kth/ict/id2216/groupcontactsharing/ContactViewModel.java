@@ -203,7 +203,7 @@ public class ContactViewModel  {
 		{
 			for( ContactDetails cd: _remoteData)
 			{
-				if( uuid == cd.id )
+				if( uuid.equals(cd.id) )
 				{
 					return cd;
 				}

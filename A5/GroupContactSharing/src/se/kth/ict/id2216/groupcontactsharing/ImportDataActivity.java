@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.Menu;
 import android.view.View;
@@ -21,16 +24,23 @@ public class ImportDataActivity extends Activity {
 	RelativeLayout rel;
 	CheckBox everythingCheckBox;
 
+	ProgressDialog progressBar;
+	private int progressBarStatus = 0;
+	private Handler progressBarHandler = new Handler();
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
-
+		
+		Intent myIntent = getIntent();
+		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
+		
 		rel = (RelativeLayout)findViewById(R.id.importDataLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 		
-		createCheckBoxes();
+		createCheckBoxes(uuidList);
 		createImportButton();
 	}
 
@@ -41,18 +51,24 @@ public class ImportDataActivity extends Activity {
 		return true;
 	}
 
-	private void createCheckBoxes() {
-		Other o = new Other("name", rel, everythingCheckBox.getId(), everythingCheckBox.getId());
-		o.addCheckBox("fb: fbName");
-		o.addCheckBox("skype: skypeName");
-		o.addCheckBox("whattsapp: wa");
-		otherList.add(o);
-		
-		Other o2 = new Other("name", rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
-		o2.addCheckBox("fb: fbName2");
-		o2.addCheckBox("skype: skypeName2");
-		o2.addCheckBox("whattsapp: wa2");
-		otherList.add(o2);
+	private void createCheckBoxes(ArrayList<String> uuidList) {
+		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+		ContactViewModel _model = myApp.getModel();
+		for(String uuid : uuidList) {
+			ContactDetails details = _model.getContactById(uuid);
+			if (details != null) {
+				Other newOther;
+				if (otherList.isEmpty())
+					newOther = new Other(details.name, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
+				else
+					newOther = new Other(details.name, rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
+				if (details.phone != null)
+					newOther.addCheckBox("Phone: " + details.phone);
+				if (details.email != null)
+					newOther.addCheckBox("E-Mail: " + details.email);
+				otherList.add(newOther);
+			}
+		}
 	}
 	
 	private void createImportButton() {
@@ -62,13 +78,10 @@ public class ImportDataActivity extends Activity {
 
 			@Override
 	        public void onClick(View btn) {
-	    		// add new checkboxes
-	    		//RelativeLayout linearLayout = (RelativeLayout) findViewById(R.id.importDataLayout);
-	    		Button bt = new Button(btn.getContext());
-	    		bt.setText("A Button");
-	    		bt.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-	    		rel.addView(bt);
-	        
+				//TODO Import data here
+				//showProgressBar();
+				Intent startIntent = new Intent(btn.getContext(), StartActivity.class);
+				startActivity(startIntent);
 	        }
 	        });
 		
@@ -84,6 +97,53 @@ public class ImportDataActivity extends Activity {
 		importButton.setLayoutParams(params);
 		rel.addView(importButton);
 	}
+	
+	/*private void showProgressBar() {
+		progressBar = new ProgressDialog(this);
+		progressBar.setCancelable(true);
+		progressBar.setMessage("Importing contact details ...");
+		progressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		progressBar.setProgress(0);
+		progressBar.setMax(100);
+		progressBar.show();
+
+		progressBarStatus = 0;
+		//TODO change
+		int fileSize = 0;
+
+		new Thread(new Runnable() {
+		  public void run() {
+			  System.currentTimeMillis();
+			while (progressBarStatus < 100) {
+			  progressBarStatus = 
+
+			  // Update the progress bar
+			  progressBarHandler.post(new Runnable() {
+				public void run() {
+				  progressBar.setProgress(progressBarStatus);
+				}
+			  });
+			}
+
+			// ok, file is downloaded,
+			if (progressBarStatus >= 100) {
+
+				// sleep 2 seconds, so that you can see the 100%
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				// close the progress bar dialog
+				progressBar.dismiss();
+				
+				Intent startIntent = new Intent(, StartActivity.class);
+				startActivity(startIntent);
+			}
+		  }
+	       }).start();
+	}*/
 	
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
