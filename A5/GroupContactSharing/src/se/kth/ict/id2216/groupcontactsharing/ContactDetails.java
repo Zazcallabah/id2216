@@ -7,7 +7,7 @@ public class ContactDetails {
 	public String name = null;
 	public String email = null;
 	public String phone = null;
-	
+
 	public static ContactDetails Create( ContactViewModel model )
 	{
 		ContactDetails d = new ContactDetails();
@@ -19,7 +19,7 @@ public class ContactDetails {
 			d.phone = model.getPhone();
 		return d;
 	}
-	
+
 	private static Gson _gson = new Gson();
 
 	public String Serialize()
