@@ -171,13 +171,15 @@ public class ContactViewModel  {
 			return;
 		for(ContactDetails cd : list)
 		{
+			if( cd.id.equals( this.id ))
+				continue;
 			boolean isnew = true;
 
 			synchronized(_remoteData)
 			{
 				for( ContactDetails existing: _remoteData)
 				{
-					if( existing.id == cd.id )
+					if( existing.id.equals( cd.id ) )
 					{
 						isnew=false;
 						break;
