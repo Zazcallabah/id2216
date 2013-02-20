@@ -20,26 +20,26 @@ import android.widget.RelativeLayout;
 public class ImportDataActivity extends Activity {
 
 	List<Other> otherList = new ArrayList<Other>();
-	
+
 	RelativeLayout rel;
 	CheckBox everythingCheckBox;
 
 	ProgressDialog progressBar;
 	private int progressBarStatus = 0;
 	private Handler progressBarHandler = new Handler();
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
-		
+
 		Intent myIntent = getIntent();
 		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
-		
+
 		rel = (RelativeLayout)findViewById(R.id.importDataLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
-		
+
 		createCheckBoxes(uuidList);
 		createImportButton();
 	}
@@ -62,29 +62,29 @@ public class ImportDataActivity extends Activity {
 					newOther = new Other(details.name, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
 				else
 					newOther = new Other(details.name, rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
-				if (details.phone != null)
+				if (details.phone != null && !details.phone.equals(""))
 					newOther.addCheckBox("Phone: " + details.phone);
-				if (details.email != null)
+				if (details.email != null && !details.email.equals(""))
 					newOther.addCheckBox("E-Mail: " + details.email);
 				otherList.add(newOther);
 			}
 		}
 	}
-	
+
 	private void createImportButton() {
 		Button importButton = new Button(this);
 		importButton.setText(R.string.import_);
 		importButton.setOnClickListener(new OnClickListener() {
 
 			@Override
-	        public void onClick(View btn) {
+			public void onClick(View btn) {
 				//TODO Import data here
-				//showProgressBar();
-				Intent startIntent = new Intent(btn.getContext(), StartActivity.class);
-				startActivity(startIntent);
-	        }
-	        });
-		
+				showProgressBar();
+				/*Intent startIntent = new Intent(btn.getContext(), StartActivity.class);
+				startActivity(startIntent);*/
+			}
+		});
+
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		if (otherList.isEmpty())
 			params.addRule(RelativeLayout.BELOW, everythingCheckBox.getId());
@@ -93,12 +93,12 @@ public class ImportDataActivity extends Activity {
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 1);
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
 		params.setMargins(30, 0, 30, 0);
-		
+
 		importButton.setLayoutParams(params);
 		rel.addView(importButton);
 	}
-	
-	/*private void showProgressBar() {
+
+	private void showProgressBar() {
 		progressBar = new ProgressDialog(this);
 		progressBar.setCancelable(true);
 		progressBar.setMessage("Importing contact details ...");
@@ -112,59 +112,62 @@ public class ImportDataActivity extends Activity {
 		int fileSize = 0;
 
 		new Thread(new Runnable() {
-		  public void run() {
-			  System.currentTimeMillis();
-			while (progressBarStatus < 100) {
-			  progressBarStatus = 
+			public void run() {
+				long startTime =  System.currentTimeMillis();
+				while (progressBarStatus < 100) {
+					progressBarStatus = Math.round((System.currentTimeMillis() - startTime)/10);
 
-			  // Update the progress bar
-			  progressBarHandler.post(new Runnable() {
-				public void run() {
-				  progressBar.setProgress(progressBarStatus);
-				}
-			  });
-			}
-
-			// ok, file is downloaded,
-			if (progressBarStatus >= 100) {
-
-				// sleep 2 seconds, so that you can see the 100%
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					// Update the progress bar
+					progressBarHandler.post(new Runnable() {
+						public void run() {
+							progressBar.setProgress(progressBarStatus);
+						}
+					});
 				}
 
-				// close the progress bar dialog
-				progressBar.dismiss();
-				
-				Intent startIntent = new Intent(, StartActivity.class);
-				startActivity(startIntent);
+				if (progressBarStatus >= 100) {
+
+					// sleep 2 seconds, so that you can see the 100%
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					// close the progress bar dialog
+					progressBar.dismiss();
+
+					goBackToStart();
+				}
 			}
-		  }
-	       }).start();
-	}*/
+		}).start();
+	}
 	
+	public void goBackToStart(){
+		Intent startIntent = new Intent(this, StartActivity.class);
+		startActivity(startIntent);
+	}
+
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
 			boolean b = ((CheckBox) v).isChecked();
 			for (Other other : otherList)
 				other.setChecked(b);
-			
+
 		}
 	};
 
 }
 
 class Other implements View.OnClickListener{
-	
+
 	private static int id = 1;
-	
+
 	private RelativeLayout rel;
 	private CheckBox cbName;
 
 	private List<CheckBox> cbList = new ArrayList<CheckBox>();
-	
+
 	public Other(String name, RelativeLayout rel, int relativeToBelow, int relativeToLeft) {
 		this.rel = rel;
 		cbName = new CheckBox(rel.getContext());
@@ -172,27 +175,27 @@ class Other implements View.OnClickListener{
 		cbName.setChecked(true);
 		cbName.setId(id++);
 		cbName.setOnClickListener(this);
-		
+
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.addRule(RelativeLayout.BELOW, relativeToBelow);
 		params.addRule(RelativeLayout.ALIGN_LEFT, relativeToLeft);
 		cbName.setLayoutParams(params);
-		
+
 		rel.addView(cbName);
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		boolean b = ((CheckBox) v).isChecked();
 		setChecked(b);
 	}
-	
+
 	public void addCheckBox(String text) {
 		CheckBox newCheckBox = new CheckBox(rel.getContext());
 		newCheckBox.setText(text);
 		newCheckBox.setId(id++);
 		newCheckBox.setChecked(true);
-		
+
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		if (cbList.isEmpty()) {
 			params.addRule(RelativeLayout.BELOW, cbName.getId());
@@ -205,19 +208,19 @@ class Other implements View.OnClickListener{
 			params.addRule(RelativeLayout.ALIGN_LEFT, relTo.getId());
 		}
 		newCheckBox.setLayoutParams(params);
-		
+
 		cbList.add(newCheckBox);
 		rel.addView(newCheckBox);
 	}
-	
+
 	public void setChecked(boolean b) {
 		cbName.setChecked(b);
 		for (CheckBox cb : cbList)
 			cb.setChecked(b);
 	}
-	
+
 	public int getId() {
 		return id-1;
 	}
-	
+
 }
