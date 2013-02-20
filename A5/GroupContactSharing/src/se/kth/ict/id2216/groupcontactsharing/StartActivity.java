@@ -10,20 +10,20 @@ import android.widget.CheckBox;
 public class StartActivity extends Activity /* implements OnClickListener */{
 
 	private ContactViewModel _model;
-private CheckBox email;
-private CheckBox name;
-private CheckBox phone;
+	private CheckBox email;
+	private CheckBox name;
+	private CheckBox phone;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		_model = myApp.getModel();
- 
+
 		setContentView(R.layout.activity_start);
-		
+
 		email =(CheckBox)findViewById(R.id.emailCheckBox); 
-		 phone =(CheckBox)findViewById(R.id.phoneCheckBox); 
-		 name =(CheckBox)findViewById(R.id.nameCheckBox); 
+		phone =(CheckBox)findViewById(R.id.phoneCheckBox); 
+		name =(CheckBox)findViewById(R.id.nameCheckBox); 
 
 	}
 	void refresh ()
@@ -41,7 +41,7 @@ private CheckBox phone;
 		_model.restore(this);
 		refresh();
 	}
-	
+
 	@Override
 	protected void onPause(){
 		super.onPause();
@@ -69,7 +69,7 @@ private CheckBox phone;
 		_model.setEmailSelected(email.isChecked());
 		_model.setPhoneSelected(phone.isChecked());
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
-	
+
 		startActivity(identifyGroup);
 	}
 
