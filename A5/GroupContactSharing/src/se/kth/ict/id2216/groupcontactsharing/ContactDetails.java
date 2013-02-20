@@ -4,7 +4,8 @@ import com.google.gson.Gson;
 
 public class ContactDetails {
 	public String id = null;
-	public String name = null;
+	public String displayname = null;
+	public String fullname = null;
 	public String email = null;
 	public String phone = null;
 
@@ -12,7 +13,9 @@ public class ContactDetails {
 	{
 		ContactDetails d = new ContactDetails();
 		d.id = model.getId();
-		d.name = model.getName();
+		d.displayname = model.getDisplayName();
+		if( model.isFullNameSelected() )
+			d.fullname = model.getFullName();
 		if( model.isEmailSelected() )
 			d.email = model.getEmail();
 		if( model.isPhoneSelected())
