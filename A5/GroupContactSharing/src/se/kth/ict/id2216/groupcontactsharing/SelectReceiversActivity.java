@@ -67,7 +67,7 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 			if(uuids.size() >0)
 			{
 				Intent importDataIntent = new Intent(this, ImportDataActivity.class);
-				importDataIntent.putExtra("importdata", uuids.toArray());
+				importDataIntent.putStringArrayListExtra("importdata", uuids);
 				startActivity(importDataIntent);
 			}
 		}
