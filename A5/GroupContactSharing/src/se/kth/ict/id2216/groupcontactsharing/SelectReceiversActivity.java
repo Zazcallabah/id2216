@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
-public class SelectReceiversActivity extends Activity implements OnClickListener {
+public class SelectReceiversActivity extends Activity implements OnClickListener, NewContactAddedListener {
 
 	int id = 1;
 
@@ -24,10 +24,16 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 	Button sendButton;
 	RelativeLayout rel;
 
+	private ContactViewModel _model;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_select_receivers);
+		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+		_model = myApp.getModel();
+		_model.addEventListener(this);
+		new GetDataTask(30).execute(_model);
 
 		rel = (RelativeLayout)findViewById(R.id.selectReceiversLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.nameCheckBox);
@@ -60,8 +66,14 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 	};
 
 	private void addCheckBoxes() {
-		addCheckBox("name1");
-		addCheckBox("name2");
+		//this will most probably be an empty list, but do it anyway
+		_model.ForeachContact( new ContactAction() {			
+			@Override
+			public void run(ContactDetails cd) {
+				addCheckBox(cd.name);
+
+			}
+		});
 	}
 
 	private void addCheckBox(String text) {
@@ -98,6 +110,24 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 
 		sendButton.setLayoutParams(params);
 		rel.addView(sendButton);
+	}
+
+	@Override
+	public void newContactAdded(NewContactEvent e) {
+		ContactDetails cd = _model.getContactById(e.getUuid());
+		if( cd == null )
+			return;
+		final String cdname =cd.name;
+		Runnable r = new Runnable() {
+
+			@Override
+			public void run() {
+				addCheckBox(cdname);
+
+			}
+		};
+
+		SelectReceiversActivity.this.runOnUiThread(r);
 	}
 
 }
