@@ -2,10 +2,10 @@ package se.kth.ict.id2216.groupcontactsharing;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +19,7 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 	int id = 1;
 
 	List<CheckBox> cbList = new ArrayList<CheckBox>();
-
+	SparseArray<String> checkboxid2uuid = new SparseArray<String>();
 	CheckBox everythingCheckBox;
 	Button sendButton;
 	RelativeLayout rel;
@@ -52,8 +52,24 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 
 	public void onClick(View btn) {
 		if (btn.equals(sendButton)) {
-			Intent importDataIntent = new Intent(this, ImportDataActivity.class);
-			startActivity(importDataIntent);
+
+			ArrayList<String> uuids = new ArrayList<String>();
+			for(CheckBox cb : cbList )
+			{
+				if(cb.isChecked())
+				{
+					int id = cb.getId();
+					String uuid = checkboxid2uuid.get(id);
+					uuids.add(uuid);
+				}
+			}
+
+			if(uuids.size() >0)
+			{
+				Intent importDataIntent = new Intent(this, ImportDataActivity.class);
+				importDataIntent.putExtra("importdata", uuids.toArray());
+				startActivity(importDataIntent);
+			}
 		}
 	}
 
@@ -70,17 +86,20 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		_model.ForeachContact( new ContactAction() {			
 			@Override
 			public void run(ContactDetails cd) {
-				addCheckBox(cd.name);
+				addCheckBox(cd.name,cd.id);
 
 			}
 		});
 	}
 
-	private void addCheckBox(String text) {
+	private void addCheckBox(String text, String uuid) {
 		CheckBox newCheckBox = new CheckBox(this);
 		newCheckBox.setText(text);
 		newCheckBox.setChecked(true);
-		newCheckBox.setId(id++);
+		newCheckBox.setId(id);
+
+		checkboxid2uuid.put(id, uuid);
+		id+=1;
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		if (cbList.isEmpty())
@@ -92,13 +111,18 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 
 		cbList.add(newCheckBox);
 		rel.addView(newCheckBox);
+		positionSendButton();
 	}
 
 	private void createSendButton() {
 		sendButton = new Button(this);
 		sendButton.setText(R.string.import_);
 		sendButton.setOnClickListener(this);
+		positionSendButton();
+		rel.addView(sendButton);
+	}
 
+	private void positionSendButton(){
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		if (cbList.isEmpty())
 			params.addRule(RelativeLayout.BELOW, everythingCheckBox.getId());
@@ -109,8 +133,8 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		params.setMargins(30, 0, 30, 0);
 
 		sendButton.setLayoutParams(params);
-		rel.addView(sendButton);
 	}
+
 
 	@Override
 	public void newContactAdded(NewContactEvent e) {
@@ -118,11 +142,12 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		if( cd == null )
 			return;
 		final String cdname =cd.name;
+		final String cdid = cd.id;
 		Runnable r = new Runnable() {
 
 			@Override
 			public void run() {
-				addCheckBox(cdname);
+				addCheckBox(cdname,cdid);
 
 			}
 		};
