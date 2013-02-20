@@ -40,15 +40,15 @@ public class ContactViewModel  {
 		_remoteData = new LinkedList<ContactDetails>();
 	}
 
-	void setFields( ContactViewModel source )
+	void setFields( ContactDetails source )
 	{
-		this.setName(source.getName());
-		this.setEmail(source.getEmail());
-		this.setPhone(source.getPhone());
+		this.setName(source.name);
+		this.setEmail(source.email);
+		this.setPhone(source.phone);
 		this.getId();
-		nameSelected=source.nameSelected;
-		emailSelected=source.emailSelected;
-		phoneSelected=source.phoneSelected;
+		nameSelected=true;
+		emailSelected=true;
+		phoneSelected=true;
 	}
 
 	public void save( Activity act )
@@ -72,7 +72,7 @@ public class ContactViewModel  {
 			FileInputStream fIn;
 			fIn = act.openFileInput ( StorageLocation );
 			JsonReader jr = new JsonReader(fIn);
-			setFields(jr.get( ContactViewModel.class ));
+			setFields(jr.get( ContactDetails.class ));
 		} catch (FileNotFoundException e) {
 
 			e.printStackTrace();
@@ -91,7 +91,11 @@ public class ContactViewModel  {
 
 	public String Serialize()
 	{
-		return _gson.toJson( this );
+		ContactDetails d =new ContactDetails();
+		d.email=this.email;
+		d.name=this.name;
+		d.phone=this.phone;
+		return _gson.toJson( d );
 	}
 
 	public void ForeachContact( ContactAction a )
