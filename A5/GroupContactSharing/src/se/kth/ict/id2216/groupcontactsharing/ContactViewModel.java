@@ -211,6 +211,14 @@ public class ContactViewModel  {
 				fireEventNewContactAdded(cd.id);
 		}
 	}
+	
+	public void ClearReceivedContacts()
+	{
+		synchronized(_remoteData)
+		{
+			_remoteData.clear();
+		}
+	}
 
 	public ContactDetails getContactById( String uuid )
 	{

@@ -86,6 +86,7 @@ public class StartActivity extends Activity /* implements OnClickListener */{
 		_model.setFullNameSelected(fullname.isChecked());
 		_model.setEmailSelected(email.isChecked());
 		_model.setPhoneSelected(phone.isChecked());
+		_model.ClearReceivedContacts();
 		Intent identifyGroup = new Intent(this, IdentifyGroupActivity.class);
 
 		startActivity(identifyGroup);
