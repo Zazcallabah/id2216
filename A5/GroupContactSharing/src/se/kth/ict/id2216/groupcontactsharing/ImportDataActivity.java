@@ -78,10 +78,7 @@ public class ImportDataActivity extends Activity {
 
 			@Override
 			public void onClick(View btn) {
-				//TODO Import data here
 				showProgressBar();
-				/*Intent startIntent = new Intent(btn.getContext(), StartActivity.class);
-				startActivity(startIntent);*/
 			}
 		});
 
@@ -108,8 +105,6 @@ public class ImportDataActivity extends Activity {
 		progressBar.show();
 
 		progressBarStatus = 0;
-		//TODO change
-		int fileSize = 0;
 
 		new Thread(new Runnable() {
 			public void run() {
@@ -117,7 +112,6 @@ public class ImportDataActivity extends Activity {
 				while (progressBarStatus < 100) {
 					progressBarStatus = Math.round((System.currentTimeMillis() - startTime)/10);
 
-					// Update the progress bar
 					progressBarHandler.post(new Runnable() {
 						public void run() {
 							progressBar.setProgress(progressBarStatus);
@@ -127,22 +121,20 @@ public class ImportDataActivity extends Activity {
 
 				if (progressBarStatus >= 100) {
 
-					// sleep 2 seconds, so that you can see the 100%
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 
-					// close the progress bar dialog
 					progressBar.dismiss();
-
 					goBackToStart();
+
 				}
 			}
 		}).start();
 	}
-	
+
 	public void goBackToStart(){
 		Intent startIntent = new Intent(this, StartActivity.class);
 		startActivity(startIntent);
