@@ -1,0 +1,7 @@
+Have you ever met a group of new people?
+How much time did you spend typing email addresses and phone numbers into each others' phones?
+Good news, you don't have to! With our app, everybody decides on a common group identifier and clicks import.
+It is quick and it is easy.
+
+
+// Peter Hamberg, group 2

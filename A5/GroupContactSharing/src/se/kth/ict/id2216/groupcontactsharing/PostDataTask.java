@@ -18,6 +18,11 @@ public class PostDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> 
 	private HttpResponse send( String label, HttpEntity payload ) throws ClientProtocolException, IOException
 	{
 		HttpClient httpclient = new DefaultHttpClient();
+		httpclient.getParams().setParameter("http.socket.timeout", 3000);
+		httpclient.getParams().setParameter("http.connection.timeout", 3000);
+		httpclient.getParams().setParameter("http.connection-manager.timeout", 3000);
+		httpclient.getParams().setParameter("http.protocol.head-body-timeout", 3000);
+		
 		HttpPost httppost = new HttpPost("http://tmp.prefect.se:8888/api/"+label);
 		httppost.setEntity(payload );
 		return  httpclient.execute(httppost);

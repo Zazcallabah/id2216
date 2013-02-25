@@ -5,23 +5,23 @@ import java.util.List;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.util.SparseArray;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
-public class SelectReceiversActivity extends Activity implements OnClickListener, NewContactAddedListener {
+public class SelectReceiversActivity extends Activity implements NewContactAddedListener {
 
 	int id = 1;
 
 	List<CheckBox> cbList = new ArrayList<CheckBox>();
 	SparseArray<String> checkboxid2uuid = new SparseArray<String>();
 	CheckBox everythingCheckBox;
-	Button sendButton;
+	Button refreshButton;
 	RelativeLayout rel;
 
 	private ContactViewModel _model;
@@ -34,13 +34,16 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		_model = myApp.getModel();
 		_model.addEventListener(this);
 		new GetDataTask(30).execute(_model);
+		Button b = (Button)findViewById(R.id.sendButton);
+		b.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
+		refreshButton = (Button)findViewById(R.id.refreshButton);
 
 		rel = (RelativeLayout)findViewById(R.id.selectReceiversLayout);
 		everythingCheckBox = (CheckBox) findViewById(R.id.nameCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 
 		addCheckBoxes();
-		createSendButton();
+		repositionButtons();
 	}
 
 	@Override
@@ -50,26 +53,24 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		return true;
 	}
 
-	public void onClick(View btn) {
-		if (btn.equals(sendButton)) {
+	public void onSendButton_Click(View v) {
 
-			ArrayList<String> uuids = new ArrayList<String>();
-			for(CheckBox cb : cbList )
+		ArrayList<String> uuids = new ArrayList<String>();
+		for(CheckBox cb : cbList )
+		{
+			if(cb.isChecked())
 			{
-				if(cb.isChecked())
-				{
-					int id = cb.getId();
-					String uuid = checkboxid2uuid.get(id);
-					uuids.add(uuid);
-				}
+				int id = cb.getId();
+				String uuid = checkboxid2uuid.get(id);
+				uuids.add(uuid);
 			}
+		}
 
-			if(uuids.size() >0)
-			{
-				Intent importDataIntent = new Intent(this, ImportDataActivity.class);
-				importDataIntent.putStringArrayListExtra("importdata", uuids);
-				startActivity(importDataIntent);
-			}
+		if(uuids.size() >0)
+		{
+			Intent importDataIntent = new Intent(this, ImportDataActivity.class);
+			importDataIntent.putStringArrayListExtra("importdata", uuids);
+			startActivity(importDataIntent);
 		}
 	}
 
@@ -86,7 +87,7 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		_model.ForeachContact( new ContactAction() {			
 			@Override
 			public void run(ContactDetails cd) {
-				addCheckBox(cd.name,cd.id);
+				addCheckBox(cd.displayname,cd.id);
 
 			}
 		});
@@ -111,18 +112,10 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 
 		cbList.add(newCheckBox);
 		rel.addView(newCheckBox);
-		positionSendButton();
+		repositionButtons();
 	}
 
-	private void createSendButton() {
-		sendButton = new Button(this);
-		sendButton.setText(R.string.import_);
-		sendButton.setOnClickListener(this);
-		positionSendButton();
-		rel.addView(sendButton);
-	}
-
-	private void positionSendButton(){
+	private void repositionButtons(){
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		if (cbList.isEmpty())
 			params.addRule(RelativeLayout.BELOW, everythingCheckBox.getId());
@@ -132,7 +125,11 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
 		params.setMargins(30, 0, 30, 0);
 
-		sendButton.setLayoutParams(params);
+		refreshButton.setLayoutParams(params);
+	}
+
+	public void onRefreshButton_Click(View v) {
+		new GetDataTask(1).execute(_model);
 	}
 
 
@@ -141,7 +138,7 @@ public class SelectReceiversActivity extends Activity implements OnClickListener
 		ContactDetails cd = _model.getContactById(e.getUuid());
 		if( cd == null )
 			return;
-		final String cdname =cd.name;
+		final String cdname =cd.displayname;
 		final String cdid = cd.id;
 		Runnable r = new Runnable() {
 

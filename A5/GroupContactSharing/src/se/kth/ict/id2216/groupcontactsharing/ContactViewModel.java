@@ -25,12 +25,13 @@ public class ContactViewModel  {
 
 	private static String StorageLocation = "Contact_Data.json";
 
-	private String name = "";
+	private String displayname = "";
+	private String fullname = "";
 	private String id = null;
 	private String email = "";
 	private String phone = "";
 	private String label = "";
-	private boolean nameSelected = true;
+	private boolean fullNameSelected = true;
 	private boolean emailSelected = true;
 	private boolean phoneSelected = true;
 	private List<ContactDetails> _remoteData;
@@ -42,11 +43,12 @@ public class ContactViewModel  {
 
 	void setFields( ContactDetails source )
 	{
-		this.setName(source.name);
+		this.setFullName(source.fullname);
+		this.setDisplayName(source.displayname);
 		this.setEmail(source.email);
 		this.setPhone(source.phone);
 		this.getId();
-		nameSelected=true;
+		fullNameSelected=true;
 		emailSelected=true;
 		phoneSelected=true;
 	}
@@ -93,7 +95,8 @@ public class ContactViewModel  {
 	{
 		ContactDetails d =new ContactDetails();
 		d.email=this.email;
-		d.name=this.name;
+		d.fullname=this.fullname;
+		d.displayname=this.displayname;
 		d.phone=this.phone;
 		return _gson.toJson( d );
 	}
@@ -126,21 +129,30 @@ public class ContactViewModel  {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String name) {
+		this.fullname = name;
+	}
+	
+	public String getDisplayName() {
+		return displayname;
 	}
 
-	public boolean isNameSelected() {
-		return nameSelected;
+	public void setDisplayName(String name) {
+		this.displayname = name;
 	}
 
-	public void setNameSelected(boolean nameSelected) {
-		this.nameSelected = nameSelected;
+	public boolean isFullNameSelected() {
+		return fullNameSelected;
 	}
+
+	public void setFullNameSelected(boolean nameSelected) {
+		this.fullNameSelected = nameSelected;
+	}
+	
 	public boolean isEmailSelected() {
 		return emailSelected;
 	}
@@ -148,6 +160,7 @@ public class ContactViewModel  {
 	public void setEmailSelected(boolean emailSelected) {
 		this.emailSelected = emailSelected;
 	}
+	
 	public boolean isPhoneSelected() {
 		return phoneSelected;
 	}
@@ -196,9 +209,15 @@ public class ContactViewModel  {
 			}
 			if( isnew )
 				fireEventNewContactAdded(cd.id);
-
 		}
-
+	}
+	
+	public void ClearReceivedContacts()
+	{
+		synchronized(_remoteData)
+		{
+			_remoteData.clear();
+		}
 	}
 
 	public ContactDetails getContactById( String uuid )

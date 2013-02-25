@@ -8,7 +8,7 @@ import android.os.Handler;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.text.Layout;
+import android.graphics.PorterDuff;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,9 +59,11 @@ public class ImportDataActivity extends Activity {
 			if (details != null) {
 				Other newOther;
 				if (otherList.isEmpty())
-					newOther = new Other(details.name, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
+					newOther = new Other(details.displayname, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
 				else
-					newOther = new Other(details.name, rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
+					newOther = new Other(details.displayname, rel, otherList.get(otherList.size()-1).getId(), everythingCheckBox.getId());
+				if (details.fullname != null && !details.fullname.equals(""))
+					newOther.addCheckBox("Full name: " + details.fullname);
 				if (details.phone != null && !details.phone.equals(""))
 					newOther.addCheckBox("Phone: " + details.phone);
 				if (details.email != null && !details.email.equals(""))
@@ -75,7 +77,6 @@ public class ImportDataActivity extends Activity {
 		Button importButton = new Button(this);
 		importButton.setText(R.string.import_);
 		importButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View btn) {
 				showProgressBar();
@@ -92,6 +93,7 @@ public class ImportDataActivity extends Activity {
 		params.setMargins(30, 0, 30, 0);
 
 		importButton.setLayoutParams(params);
+		importButton.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		rel.addView(importButton);
 	}
 

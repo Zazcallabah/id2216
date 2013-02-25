@@ -34,13 +34,32 @@
         android:inputType="textPersonName">
         <requestFocus />
     </EditText>
-
+    
     <TextView
-        android:id="@+id/emailTextView"
+        android:id="@+id/fullnameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/nameEditText"
         android:layout_below="@+id/nameEditText"
+        android:text="@string/fullname"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <EditText
+        android:id="@+id/fullnameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fullnameTextView"
+        android:layout_below="@+id/fullnameTextView"
+        android:ems="10"
+        android:inputType="textPersonName">
+    </EditText>
+    
+    <TextView
+        android:id="@+id/emailTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fullnameEditText"
+        android:layout_below="@+id/fullnameEditText"
         android:text="@string/email"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
