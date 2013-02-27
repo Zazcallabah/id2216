@@ -35,6 +35,8 @@ public class ContactViewModel  {
 	private boolean emailSelected = true;
 	private boolean phoneSelected = true;
 	private List<ContactDetails> _remoteData;
+	
+	private boolean active = false;
 
 	public ContactViewModel()
 	{
@@ -175,6 +177,14 @@ public class ContactViewModel  {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getId() {

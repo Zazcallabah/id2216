@@ -43,6 +43,9 @@ public class GetDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> {
 					if( data == null || data.length() == 0 )
 						return false;
 					List<ContactDetails> list = _gson.fromJson(data, new TypeToken<List<ContactDetails>>(){}.getType() );	
+					if(!models[i].isActive())
+						return false;
+					
 					models[i].mergeContacts( list );
 
 					if( _count > 1 )

@@ -33,6 +33,7 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		_model = myApp.getModel();
 		_model.addEventListener(this);
+		_model.setActive(true);
 		new GetDataTask(30).execute(_model);
 		Button b = (Button)findViewById(R.id.sendButton);
 		b.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
@@ -81,6 +82,19 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 				cb.setChecked(b);
 		}
 	};
+	
+	@Override
+	public void onBackPressed() {
+		_model.setActive(false);
+		_model.ClearReceivedContacts();
+		
+		for (CheckBox cb : cbList)
+			 rel.removeView(cb);
+		cbList.clear();
+		repositionButtons();
+		
+		super.onBackPressed();
+	}
 
 	private void addCheckBoxes() {
 		//this will most probably be an empty list, but do it anyway
