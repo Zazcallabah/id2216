@@ -38,7 +38,7 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 		b.getBackground().setColorFilter(0xFFFFFF00, PorterDuff.Mode.MULTIPLY);
 		refreshButton = (Button)findViewById(R.id.refreshButton);
 
-		rel = (RelativeLayout)findViewById(R.id.selectReceiversLayout);
+		rel = (RelativeLayout)findViewById(R.id.relativeLayoutSelect);
 		everythingCheckBox = (CheckBox) findViewById(R.id.nameCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 

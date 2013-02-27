@@ -34,7 +34,7 @@ public class ImportDataActivity extends Activity {
 		Intent myIntent = getIntent();
 		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
 
-		rel = (RelativeLayout)findViewById(R.id.importDataLayout);
+		rel = (RelativeLayout)findViewById(R.id.relativeLayoutImport);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 
@@ -85,9 +85,10 @@ public class ImportDataActivity extends Activity {
 			@Override
 			public void onClick(View btn) {
 				List<ContactDetails> details = new ArrayList<ContactDetails>();
-				for (Contact o : contactList) {
-					ContactDetails checkedDetails = o.getDetails();
-					details.add(checkedDetails);
+				for (Contact c : contactList) {
+					ContactDetails checkedDetails = c.getDetails();
+					if (checkedDetails != null)
+						details.add(checkedDetails);
 				}
 				importData(details);
 			}

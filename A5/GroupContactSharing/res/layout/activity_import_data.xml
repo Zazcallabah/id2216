@@ -1,28 +1,34 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/importDataLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".ImportDataActivity" >
 
-    <TextView
-        android:id="@+id/importTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/import_"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <RelativeLayout
+        android:id="@+id/relativeLayoutImport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <CheckBox
-        android:id="@+id/everythingCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/importTextView"
-        android:layout_below="@+id/importTextView"
-        android:text="@string/everyone"
-        android:checked="true" />
+        <TextView
+            android:id="@+id/importTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/import_"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/everythingCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/importTextView"
+            android:layout_below="@+id/importTextView"
+            android:checked="true"
+            android:text="@string/everyone" />
+    </RelativeLayout>
+
+</ScrollView>

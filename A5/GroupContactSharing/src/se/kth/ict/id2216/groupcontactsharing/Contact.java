@@ -63,7 +63,7 @@ public class Contact implements View.OnClickListener{
 		newCheckBox.setChecked(true);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		
+
 		if (cbList.isEmpty()) {
 			params.addRule(RelativeLayout.BELOW, cbName.getId());
 			params.addRule(RelativeLayout.ALIGN_LEFT, cbName.getId());
@@ -94,25 +94,31 @@ public class Contact implements View.OnClickListener{
 	public ContactDetails getDetails() {
 		ContactDetails checkedDetails = new ContactDetails();
 
-		checkedDetails.displayname = details.displayname;
-
+		int count = 0;
 		for (DetailCheckBox cb : cbList) {
 			if (cb.isChecked()) {
 				switch (cb.getType()) {
 				case NAME : 
 					checkedDetails.fullname = details.fullname;
+					count++;
 					break;
 				case PHONE :
 					checkedDetails.phone = details.phone;
+					count++;
 					break;
 				case MAIL :
 					checkedDetails.email = details.email;
+					count++;
 					break;
 				}
 			}
 		}
-
-		return checkedDetails;
+		if (count > 0) {
+			checkedDetails.displayname = details.displayname;
+			return checkedDetails;
+		}
+		else 
+			return null;
 	}
 
 }
