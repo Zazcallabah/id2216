@@ -76,20 +76,32 @@ var requesthandler = function( request, response ) {
 				}
 				else
 				{
-					// remove existing entry with same id
-					for( var i = storage[label].length-1; i>=0 ; i-- )
+					var object_to_store = JSON.parse(data);
+					if( object_to_store.id === undefined )
 					{
-						console.log("comparing " + storage[label][i].data.id + " with " + JSON.parse( data ).id );
-						if (storage[label][i].data.id == JSON.parse(data).id && JSON.parse(data).id != undefined)
-						{
-							console.log("removing id " + storage[label][i].data.id);
-							storage[label].splice(i, i);
-							break;
-						}
+						response.writeHead(400, "Bad request, missing id", {'Content-Type': 'text/html'});
 					}
-					storage[label].push( { timestamp: new Date().getTime(), data: JSON.parse(data) } );
-					console.log( "["+label+"] stored "+data );
-					response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+					else
+					{
+						var object_updated = false;
+						// is the ID already added?
+						for( var i = 0; i < storage[label].length; i++ )
+						{
+							if( storage[label][i].data.id === object_to_store.id )
+							{
+								console.log("updating id " + storage[label][i].data.id);
+								storage[label][i].data = object_to_store;
+								object_updated = true;
+								break;
+							}
+						}
+						if( !object_updated )
+						{
+							storage[label].push( { timestamp: new Date().getTime(), data: object_to_store } );
+							console.log( "["+label+"] stored "+data );
+						}
+						response.writeHead(200, "OK", {'Content-Type': 'text/html'});
+					}
 				}
 				response.end();
 			});

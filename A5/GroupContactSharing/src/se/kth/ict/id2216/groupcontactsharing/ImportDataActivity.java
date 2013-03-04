@@ -20,12 +20,11 @@ import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class ImportDataActivity extends Activity implements NewContactAddedListener {
+public class ImportDataActivity extends Activity implements ContactUpdatedListener {
 
 	ProgressDialog progressBar;
+	ContactViewModel _model;
 
-	private ContactViewModel _model;
-	
 	List<Contact> contactList = new ArrayList<Contact>();
 
 	RelativeLayout rel;
@@ -38,17 +37,19 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		_model = myApp.getModel();
-		_model.addEventListener(this);
+		_model.addUEventListener(this);
 		_model.setActive(true);
-		
+		if( GetDataTask.TaskCount <= 0 )
+			new GetDataTask(30).execute(_model);
+
 		Intent myIntent = getIntent();
 		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
 
 		rel = (RelativeLayout)findViewById(R.id.relativeLayoutImport);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
-
-		createCheckBoxes(uuidList);
+		
+		//createCheckBoxes(uuidList);
 		createImportButton();
 	}
 
@@ -63,7 +64,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 		rel.addView(textView);
 		rel.addView(everythingCheckBox);
 	}
-	
+
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
 			boolean b = ((CheckBox) v).isChecked();
@@ -72,17 +73,22 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 		}
 	};
 
-	private void createCheckBoxes(ArrayList<String> uuidList) {
+	private void createCheckBoxes(ArrayList<String> newUuidList) {
 		Map<String, Contact> oldState = null;
+		ArrayList<String> uuidList = new ArrayList<String>();
 		if (!contactList.isEmpty()) {
 			oldState = getOldState();
-			//TextView textView = (TextView)findViewById(R.id.importTextView);
+			uuidList = new ArrayList<String>(oldState.keySet());
 			
+			TextView textView = (TextView)findViewById(R.id.importTextView);
+
 			rel.removeAllViewsInLayout();
 			contactList.clear();
-			//addInitialViews(textView);
+			addInitialViews(textView);
+			createImportButton();
 		}
-		
+		uuidList.addAll(newUuidList);
+
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		ContactViewModel _model = myApp.getModel();
 
@@ -94,7 +100,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 				Contact oldContact = null;
 				if (oldState != null)
 					oldContact = oldState.get(uuid);
-				
+
 				if (contactList.isEmpty())
 					newContact = new Contact(details, oldContact, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
 				else
@@ -104,7 +110,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 			}
 		}
 	}
-	
+
 	private Map<String, Contact> getOldState() {
 		Map<String, Contact> contactMap = new HashMap<String, Contact>();
 		for (Contact c : contactList) {
@@ -148,7 +154,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 		ImportThread importThread = new ImportThread(dialog);
 
 		// TODO look into this warning
-		importThread.execute(details);
+		importThread.execute(details.toArray(new ContactDetails[0]));
 	}
 
 	protected ProgressDialog createProgressDialog(Integer max) {
@@ -163,7 +169,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 	}
 
 	@Override
-	public void newContactAdded(NewContactEvent e) {
+	public void contactUpdated(ContactUpdatedEvent e) {
 		ContactDetails cd = _model.getContactById(e.getUuid());
 		if( cd == null )
 			return;
@@ -184,7 +190,7 @@ public class ImportDataActivity extends Activity implements NewContactAddedListe
 
 }
 
-class ImportThread extends AsyncTask<List<ContactDetails>, Integer, Boolean>{
+class ImportThread extends AsyncTask<ContactDetails, Integer, Boolean>{
 
 	private ProgressDialog dialog;
 
@@ -200,13 +206,12 @@ class ImportThread extends AsyncTask<List<ContactDetails>, Integer, Boolean>{
 
 
 	@Override
-	protected Boolean doInBackground(List<ContactDetails>... params) {
-		List<ContactDetails> details = params[0];
+	protected Boolean doInBackground(ContactDetails... details) {
 
 		ContactImporter importer = new ContactImporter(dialog.getContext());
 
-		for (int i = 0; i < details.size(); i++) {
-			importer.Read(details.get(i));
+		for (int i = 0; i < details.length; i++) {
+			importer.Read(details[i]);
 
 			publishProgress(i+1);
 		}

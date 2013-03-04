@@ -71,7 +71,7 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 		{
 			Intent importDataIntent = new Intent(this, ImportDataActivity.class);
 			importDataIntent.putStringArrayListExtra("importdata", uuids);
-			new PostDataTask().execute(_model);
+			new PostDataTask(_model.getLabel()).execute( ContactDetails.Create(_model) );
 			startActivity(importDataIntent);
 		}
 	}

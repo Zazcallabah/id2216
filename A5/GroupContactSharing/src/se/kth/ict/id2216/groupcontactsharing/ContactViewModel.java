@@ -23,6 +23,15 @@ public class ContactViewModel  {
 		_listeners.remove(listener);
 	}
 
+	private List<ContactUpdatedListener> _ulisteners = new ArrayList<ContactUpdatedListener>();
+	public synchronized void addUEventListener(ContactUpdatedListener ulistener)	{
+		if(! _ulisteners.contains(ulistener))
+			_ulisteners.add(ulistener);
+	}
+	public synchronized void removeUEventListener(ContactUpdatedListener listener)	{
+		_ulisteners.remove(listener);
+	}
+	
 	private static String StorageLocation = "Contact_Data.json";
 
 	private String displayname = "";
@@ -193,10 +202,6 @@ public class ContactViewModel  {
 		return id;
 	}
 	
-	public void setId(String newId) {
-		this.id = newId;
-	}
-
 	public void mergeContacts(List<ContactDetails> list) {
 		if( list == null )
 			return;
@@ -213,6 +218,7 @@ public class ContactViewModel  {
 					if( existing.id.equals( cd.id ) )
 					{
 						isnew=false;
+						UpdateIfDifferent( existing, cd );
 						break;
 					}
 				}
@@ -224,6 +230,32 @@ public class ContactViewModel  {
 			if( isnew )
 				fireEventNewContactAdded(cd.id);
 		}
+	}
+	
+	private boolean fuckingJavaStringEquals( String a, String b )
+	{
+		if( a == null && b == null )
+			return true;
+		if( a == null || b == null )
+			return false;
+		return a.equals( b );
+	}
+	
+	private void UpdateIfDifferent(ContactDetails existing, ContactDetails incoming) {
+				
+		if(	
+				fuckingJavaStringEquals( existing.displayname, incoming.displayname )  &&
+				fuckingJavaStringEquals( existing.fullname, incoming.fullname )  &&
+				fuckingJavaStringEquals( existing.phone, incoming.phone )  &&
+				fuckingJavaStringEquals( existing.email, incoming.email )  )
+			return;
+		
+		existing.displayname = incoming.displayname;
+		existing.email = incoming.email;
+		existing.phone = incoming.phone;
+		existing.fullname = incoming.fullname;
+		
+		fireContactUpdated(incoming.id);
 	}
 	
 	public void ClearReceivedContacts()
@@ -254,6 +286,12 @@ public class ContactViewModel  {
 		while(i.hasNext())	{
 			((NewContactAddedListener) i.next()).newContactAdded(event);
 		}
-
+	}
+	private synchronized void fireContactUpdated(String uuid)	{
+		ContactUpdatedEvent event = new ContactUpdatedEvent(this, uuid);
+		Iterator<ContactUpdatedListener> i = _ulisteners.iterator();
+		while(i.hasNext())	{
+			((ContactUpdatedListener) i.next()).contactUpdated(event);
+		}
 	}
 }
