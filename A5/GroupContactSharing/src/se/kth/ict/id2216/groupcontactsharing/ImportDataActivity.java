@@ -25,8 +25,10 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 	ProgressDialog progressBar;
 	ContactViewModel _model;
 
+	ArrayList<String> selectedUuids;
+	
 	List<Contact> contactList = new ArrayList<Contact>();
-
+	
 	RelativeLayout rel;
 	CheckBox everythingCheckBox;
 
@@ -43,13 +45,13 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 			new GetDataTask(30).execute(_model);
 
 		Intent myIntent = getIntent();
-		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
+		selectedUuids = myIntent.getStringArrayListExtra("importdata"); 
 
 		rel = (RelativeLayout)findViewById(R.id.relativeLayoutImport);
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 		
-		createCheckBoxes(uuidList);
+		createCheckBoxes(selectedUuids);
 		createImportButton();
 	}
 
@@ -80,7 +82,7 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 			oldState = getOldState();
 			uuidList = new ArrayList<String>(oldState.keySet());
 			for (String str : newUuidList)  {
-				if (!oldState.containsKey(str))
+				if (selectedUuids.contains(str) && !oldState.containsKey(str))
 					uuidList.add(str);
 			}
 		}
