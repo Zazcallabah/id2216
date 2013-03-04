@@ -14,3 +14,18 @@ public class NewContactEvent  extends java.util.EventObject {
 		return _uuid;
 	}
 }
+
+ class ContactUpdatedEvent extends java.util.EventObject {
+	private static final long serialVersionUID = -4975144166277815230L;
+	private String _uuid;
+
+	//here's the constructor
+	public ContactUpdatedEvent(Object source, String uuid) {
+		super(source);
+		_uuid=uuid;
+	}
+
+	public String getUuid() {
+		return _uuid;
+	}
+}
