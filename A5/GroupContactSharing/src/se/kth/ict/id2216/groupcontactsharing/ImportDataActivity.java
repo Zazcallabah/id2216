@@ -49,7 +49,7 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 		everythingCheckBox = (CheckBox) findViewById(R.id.everythingCheckBox);
 		everythingCheckBox.setOnClickListener(everythingHandler);
 		
-		//createCheckBoxes(uuidList);
+		createCheckBoxes(uuidList);
 		createImportButton();
 	}
 
@@ -79,8 +79,14 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 		if (!contactList.isEmpty()) {
 			oldState = getOldState();
 			uuidList = new ArrayList<String>(oldState.keySet());
+			for (String str : newUuidList)  {
+				if (!oldState.containsKey(str))
+					uuidList.add(str);
+			}
 		}
-		uuidList.addAll(newUuidList);
+		else
+			uuidList.addAll(newUuidList);
+		
 
 		TextView textView = (TextView)findViewById(R.id.importTextView);
 		rel.removeAllViewsInLayout();
