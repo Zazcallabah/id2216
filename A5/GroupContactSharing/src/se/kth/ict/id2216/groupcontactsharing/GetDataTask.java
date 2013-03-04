@@ -30,7 +30,7 @@ public class GetDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> {
 			try {
 
 				HttpClient httpclient = new DefaultHttpClient();
-				HttpGet httpget = new HttpGet("130.229.179.246:8880/api/"+models[i].getLabel());//"http://tmp.prefect.se:8888/api/"+models[i].getLabel());
+				HttpGet httpget = new HttpGet("http://130.229.179.246:8880/api/"+models[i].getLabel());//"http://tmp.prefect.se:8888/api/"+models[i].getLabel());
 				HttpResponse response = httpclient.execute(httpget);
 
 
