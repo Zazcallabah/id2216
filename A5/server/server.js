@@ -2,15 +2,15 @@ var storage = {
 "/2131165201": [
 	{
 	timestamp: (new Date().getTime())+1000*60*-3, 
-	data: "{\"id\":\"aa4a8552-61c3-408c-add6-daf6d6a2d910\",\"displayname\":\"John\",\"fullname\":\"John Spartan\",\"phone\":\"9999999\"}"
+	data: JSON.parse("{\"id\":\"aa4a8552-61c3-408c-add6-daf6d6a2d910\",\"displayname\":\"John\",\"fullname\":\"John Spartan\",\"phone\":\"9999999\"}")
 	},
 	{
 	timestamp: (new Date().getTime())+1000*60*-2,
-	data: "{\"id\":\"da4a8612-81c3-408c-add6-daf6d6a2d910\",\"displayname\":\"mike\",\"email\":\"mike@data.tmp\"}"
+	data: JSON.parse("{\"id\":\"da4a8612-81c3-408c-add6-daf6d6a2d910\",\"displayname\":\"mike\",\"email\":\"mike@data.tmp\"}")
 	},
 	{
 	timestamp: (new Date().getTime())+1000*60*1, 
-	data: "{\"id\":\"5a4a8722-91c3-408c-add6-daf6d6a2d910\",\"displayname\":\"dave\",\"fullname\":\"David Davidson\",\"phone\":\"123 44 22\",\"email\":\"d@test.org\"}"
+	data: JSON.parse("{\"id\":\"5a4a8722-91c3-408c-add6-daf6d6a2d910\",\"displayname\":\"dave\",\"fullname\":\"David Davidson\",\"phone\":\"123 44 22\",\"email\":\"d@test.org\"}")
 	},
 ]
 };
@@ -79,15 +79,15 @@ var requesthandler = function( request, response ) {
 					// remove existing entry with same id
 					for( var i = storage[label].length-1; i>=0 ; i-- )
 					{
-						//console.log("checking " + JSON.stringify( storage[label][i].data ));
-						if (storage[label][i].data.id == data.id && data.id != undefined)   //  why doesn't it work?
+						console.log("comparing " + storage[label][i].data.id + " with " + JSON.parse( data ).id );
+						if (storage[label][i].data.id == JSON.parse(data).id && JSON.parse(data).id != undefined)
 						{
-							console.log("removing id " + data.id);
+							console.log("removing id " + storage[label][i].data.id);
 							storage[label].splice(i, i);
 							break;
 						}
 					}
-					storage[label].push( { timestamp: new Date().getTime(), data: data } );
+					storage[label].push( { timestamp: new Date().getTime(), data: JSON.parse(data) } );
 					console.log( "["+label+"] stored "+data );
 					response.writeHead(200, "OK", {'Content-Type': 'text/html'});
 				}
@@ -102,7 +102,7 @@ var requesthandler = function( request, response ) {
 				var parsed = [];
 				for( var i = 0; i< arr.length; i++ )
 				{
-					parsed.push(JSON.parse(arr[i].data));
+					parsed.push(arr[i].data);
 				}
 				var str = JSON.stringify( parsed );
 				//console.log("["+label+"] fetched " + str);

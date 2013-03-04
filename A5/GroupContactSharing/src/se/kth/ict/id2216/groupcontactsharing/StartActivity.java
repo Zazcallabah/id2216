@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class StartActivity extends Activity /* implements OnClickListener */{
+public class StartActivity extends Activity {
+
+	public static final String ServerUriString = "http://130.229.162.179:8888/api/";
+	//public static final String ServerUriString = "http://tmp.prefect.se:8888/api/";
 
 	private ContactViewModel _model;
 	private CheckBox email;

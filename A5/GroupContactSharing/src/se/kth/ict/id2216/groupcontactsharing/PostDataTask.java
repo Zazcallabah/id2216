@@ -23,7 +23,7 @@ public class PostDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> 
 		httpclient.getParams().setParameter("http.connection-manager.timeout", 3000);
 		httpclient.getParams().setParameter("http.protocol.head-body-timeout", 3000);
 		
-		HttpPost httppost = new HttpPost("http://130.229.162.179:8888/api/"+label);//http://tmp.prefect.se:8888/api/"+label);
+		HttpPost httppost = new HttpPost(StartActivity.ServerUriString+label);
 		android.util.Log.i("PostDataTask", "send " + httppost.getURI());
 		httppost.setEntity(payload );
 		return  httpclient.execute(httppost);
