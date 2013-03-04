@@ -55,8 +55,12 @@ public class IdentifyGroupActivity extends Activity {
 			}
 		}
 		if (count >= 1) {
+			ContactViewModel nameModel = new ContactViewModel();
+			nameModel.setDisplayName(_model.getDisplayName());
 			_model.setLabel(label);
-			new PostDataTask().execute(_model);
+			nameModel.setLabel(label);
+			//new PostDataTask().execute(_model);
+			new PostDataTask().execute(nameModel);
 			Intent excludeReceivers = new Intent(this, SelectReceiversActivity.class);
 			startActivity(excludeReceivers);
 		}
