@@ -76,9 +76,11 @@ var requesthandler = function( request, response ) {
 				}
 				else
 				{
+					// remove existing entry with same id
 					for( var i = storage[label].length-1; i>=0 ; i-- )
 					{
-						if (storage[label][i].data.id == data.id)
+						//console.log("checking " + JSON.stringify( storage[label][i].data ));
+						if (storage[label][i].data.id == data.id && data.id != undefined)   //  why doesn't it work?
 						{
 							console.log("removing id " + data.id);
 							storage[label].splice(i, i);
@@ -103,7 +105,7 @@ var requesthandler = function( request, response ) {
 					parsed.push(JSON.parse(arr[i].data));
 				}
 				var str = JSON.stringify( parsed );
-				console.log("["+label+"] fetched " + str);
+				//console.log("["+label+"] fetched " + str);
 				response.write(str);
 			}
 			else
