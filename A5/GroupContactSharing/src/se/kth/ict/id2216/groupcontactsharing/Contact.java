@@ -17,18 +17,18 @@ public class Contact implements View.OnClickListener{
 	private CheckBox cbName;
 
 	private List<DetailCheckBox> cbList = new ArrayList<DetailCheckBox>();
-
+	
 	// TODO: may have to be changed in future versions!
 	public static enum Type {
 		NAME, PHONE, MAIL
 	}
 
-	public Contact(ContactDetails details, RelativeLayout rel, int relativeToBelow, int relativeToLeft) {
+	public Contact(ContactDetails details, Contact oldContact, RelativeLayout rel, int relativeToBelow, int relativeToLeft) {
 		this.details = details;
 		this.rel = rel;
 		cbName = new CheckBox(rel.getContext());
 		cbName.setText(details.displayname);
-		cbName.setChecked(true);
+		cbName.setChecked(oldContact != null ? oldContact.cbName.isChecked() : true);
 		cbName.setId(id++);
 		cbName.setOnClickListener(this);
 
@@ -38,7 +38,7 @@ public class Contact implements View.OnClickListener{
 		cbName.setLayoutParams(params);
 
 		rel.addView(cbName);
-		addDetails();
+		addDetails(oldContact);
 	}
 
 	@Override
@@ -46,21 +46,36 @@ public class Contact implements View.OnClickListener{
 		boolean b = ((CheckBox) v).isChecked();
 		setChecked(b);
 	}
-
-	private void addDetails() {
-		if (details.fullname != null && !details.fullname.equals(""))
-			addCheckBox("Full name: " + details.fullname, Type.NAME);
-		if (details.phone != null && !details.phone.equals(""))
-			addCheckBox("Phone: " + details.phone, Type.PHONE);
-		if (details.email != null && !details.email.equals(""))
-			addCheckBox("E-Mail: " + details.email, Type.MAIL);
+	
+	private void addDetails(Contact oldContact) {
+		if (details.fullname != null && !details.fullname.equals("")) {
+			boolean b = oldContact != null ? oldContact.getStatusOf(Type.NAME) : true;
+			addCheckBox("Full name: " + details.fullname, Type.NAME, b);
+		}
+		if (details.phone != null && !details.phone.equals("")) {
+			boolean b = oldContact != null ? oldContact.getStatusOf(Type.PHONE) : true;
+			addCheckBox("Phone: " + details.phone, Type.PHONE, b);
+		}
+		if (details.email != null && !details.email.equals("")) {
+			boolean b = oldContact != null ? oldContact.getStatusOf(Type.MAIL): true;
+			addCheckBox("E-Mail: " + details.email, Type.MAIL, b);
+		}
 	}
 
-	public void addCheckBox(String text, Type type) {
+	private boolean getStatusOf(Type type) {
+		boolean b = true;
+		for (DetailCheckBox detailCb : cbList) {
+			if (detailCb.getType() == type)
+				b = detailCb.isChecked();
+		}
+		return b;
+	}
+
+	public void addCheckBox(String text, Type type, boolean b) {
 		CheckBox newCheckBox = new CheckBox(rel.getContext());
 		newCheckBox.setText(text);
 		newCheckBox.setId(id++);
-		newCheckBox.setChecked(true);
+		newCheckBox.setChecked(b);
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
@@ -89,6 +104,10 @@ public class Contact implements View.OnClickListener{
 
 	public int getId() {
 		return id-1;
+	}
+	
+	public String getUuid() {
+		return details.id;
 	}
 
 	public ContactDetails getDetails() {

@@ -1,14 +1,16 @@
 package se.kth.ict.id2216.groupcontactsharing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,11 +18,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class ImportDataActivity extends Activity {
+public class ImportDataActivity extends Activity implements NewContactAddedListener {
 
 	ProgressDialog progressBar;
 
+	private ContactViewModel _model;
+	
 	List<Contact> contactList = new ArrayList<Contact>();
 
 	RelativeLayout rel;
@@ -31,6 +36,11 @@ public class ImportDataActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_import_data);
 
+		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+		_model = myApp.getModel();
+		_model.addEventListener(this);
+		_model.setActive(true);
+		
 		Intent myIntent = getIntent();
 		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
 
@@ -49,16 +59,30 @@ public class ImportDataActivity extends Activity {
 		return true;
 	}
 
+	public void addInitialViews(TextView textView) {
+		rel.addView(textView);
+		rel.addView(everythingCheckBox);
+	}
+	
 	View.OnClickListener everythingHandler = new View.OnClickListener() {
 		public void onClick(View v) {
 			boolean b = ((CheckBox) v).isChecked();
 			for (Contact contact : contactList)
 				contact.setChecked(b);
-
 		}
 	};
 
 	private void createCheckBoxes(ArrayList<String> uuidList) {
+		Map<String, Contact> oldState = null;
+		if (!contactList.isEmpty()) {
+			oldState = getOldState();
+			//TextView textView = (TextView)findViewById(R.id.importTextView);
+			
+			rel.removeAllViewsInLayout();
+			contactList.clear();
+			//addInitialViews(textView);
+		}
+		
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		ContactViewModel _model = myApp.getModel();
 
@@ -67,15 +91,26 @@ public class ImportDataActivity extends Activity {
 
 			if (details != null) {
 				Contact newContact;
-
+				Contact oldContact = null;
+				if (oldState != null)
+					oldContact = oldState.get(uuid);
+				
 				if (contactList.isEmpty())
-					newContact = new Contact(details, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
+					newContact = new Contact(details, oldContact, rel, everythingCheckBox.getId(), everythingCheckBox.getId());
 				else
-					newContact = new Contact(details, rel, contactList.get(contactList.size()-1).getId(), everythingCheckBox.getId());
+					newContact = new Contact(details, oldContact, rel, contactList.get(contactList.size()-1).getId(), everythingCheckBox.getId());
 
 				contactList.add(newContact);
 			}
 		}
+	}
+	
+	private Map<String, Contact> getOldState() {
+		Map<String, Contact> contactMap = new HashMap<String, Contact>();
+		for (Contact c : contactList) {
+			contactMap.put(c.getUuid(), c);
+		}
+		return contactMap;
 	}
 
 	private void createImportButton() {
@@ -125,6 +160,26 @@ public class ImportDataActivity extends Activity {
 		progressBar.setCancelable(true);
 
 		return progressBar;
+	}
+
+	@Override
+	public void newContactAdded(NewContactEvent e) {
+		ContactDetails cd = _model.getContactById(e.getUuid());
+		if( cd == null )
+			return;
+		final String cdid = cd.id;
+		Runnable r = new Runnable() {
+
+			@Override
+			public void run() {
+				ArrayList<String> list = new ArrayList<String>();
+				list.add(cdid);
+				createCheckBoxes(list);
+
+			}
+		};
+
+		ImportDataActivity.this.runOnUiThread(r);
 	}
 
 }

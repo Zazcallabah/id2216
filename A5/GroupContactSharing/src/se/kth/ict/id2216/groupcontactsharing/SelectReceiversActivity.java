@@ -29,7 +29,7 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_select_receivers);
+		setContentView(R.layout.activity_select_receivers);	
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		_model = myApp.getModel();
 		_model.addEventListener(this);
@@ -88,11 +88,6 @@ public class SelectReceiversActivity extends Activity implements NewContactAdded
 	public void onBackPressed() {
 		_model.setActive(false);
 		_model.ClearReceivedContacts();
-		
-		for (CheckBox cb : cbList)
-			 rel.removeView(cb);
-		cbList.clear();
-		repositionButtons();
 		
 		super.onBackPressed();
 	}
