@@ -17,10 +17,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 
-public class ImportDataActivity extends Activity {
+public class ImportDataActivity extends Activity implements ContactUpdatedListener {
 
 	ProgressDialog progressBar;
-
+	ContactViewModel _model;
 	List<Contact> contactList = new ArrayList<Contact>();
 
 	RelativeLayout rel;
@@ -32,6 +32,14 @@ public class ImportDataActivity extends Activity {
 		setContentView(R.layout.activity_import_data);
 
 		Intent myIntent = getIntent();
+		
+		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
+		_model = myApp.getModel();
+		_model.addUEventListener(this);
+		_model.setActive(true);
+		if( GetDataTask.TaskCount <= 0 )
+			new GetDataTask(30).execute(_model);
+		
 		ArrayList<String> uuidList = myIntent.getStringArrayListExtra("importdata"); 
 
 		rel = (RelativeLayout)findViewById(R.id.relativeLayoutImport);
@@ -113,7 +121,7 @@ public class ImportDataActivity extends Activity {
 		ImportThread importThread = new ImportThread(dialog);
 
 		// TODO look into this warning
-		importThread.execute(details);
+		importThread.execute(details.toArray(new ContactDetails[0]));
 	}
 
 	protected ProgressDialog createProgressDialog(Integer max) {
@@ -127,9 +135,15 @@ public class ImportDataActivity extends Activity {
 		return progressBar;
 	}
 
+	@Override
+	public void contactUpdated(ContactUpdatedEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 
-class ImportThread extends AsyncTask<List<ContactDetails>, Integer, Boolean>{
+class ImportThread extends AsyncTask<ContactDetails, Integer, Boolean>{
 
 	private ProgressDialog dialog;
 
@@ -145,13 +159,12 @@ class ImportThread extends AsyncTask<List<ContactDetails>, Integer, Boolean>{
 
 
 	@Override
-	protected Boolean doInBackground(List<ContactDetails>... params) {
-		List<ContactDetails> details = params[0];
+	protected Boolean doInBackground(ContactDetails... details) {
 
 		ContactImporter importer = new ContactImporter(dialog.getContext());
 
-		for (int i = 0; i < details.size(); i++) {
-			importer.Read(details.get(i));
+		for (int i = 0; i < details.length; i++) {
+			importer.Read(details[i]);
 
 			publishProgress(i+1);
 		}

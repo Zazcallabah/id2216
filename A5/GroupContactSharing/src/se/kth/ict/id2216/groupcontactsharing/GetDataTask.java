@@ -20,10 +20,12 @@ public class GetDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> {
 	}
 	private int _count;
 	private static Gson _gson = new Gson();
+	public static int TaskCount = 0;
 	public boolean Done = false;
 	public boolean Result = false;
 
 	protected Boolean doInBackground(ContactViewModel... models) {
+		TaskCount++;
 		for (int i = 0; i < models.length; i++) {
 
 
@@ -71,6 +73,7 @@ public class GetDataTask extends AsyncTask<ContactViewModel, Integer, Boolean> {
 	}
 
 	protected void onPostExecute(Boolean result) {
+		TaskCount--;
 		Result= result;
 		Done=true;
 	}
