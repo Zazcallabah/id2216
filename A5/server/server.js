@@ -76,6 +76,15 @@ var requesthandler = function( request, response ) {
 				}
 				else
 				{
+					for( var i = storage[label].length-1; i>=0 ; i-- )
+					{
+						if (storage[label][i].data.id == data.id)
+						{
+							console.log("removing id " + data.id);
+							storage[label].splice(i, i);
+							break;
+						}
+					}
 					storage[label].push( { timestamp: new Date().getTime(), data: data } );
 					console.log( "["+label+"] stored "+data );
 					response.writeHead(200, "OK", {'Content-Type': 'text/html'});
