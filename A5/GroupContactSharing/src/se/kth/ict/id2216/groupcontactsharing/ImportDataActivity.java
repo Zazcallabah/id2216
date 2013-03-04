@@ -79,16 +79,14 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 		if (!contactList.isEmpty()) {
 			oldState = getOldState();
 			uuidList = new ArrayList<String>(oldState.keySet());
-			
-			TextView textView = (TextView)findViewById(R.id.importTextView);
-
-			rel.removeAllViewsInLayout();
-			contactList.clear();
-			addInitialViews(textView);
-			createImportButton();
 		}
 		uuidList.addAll(newUuidList);
 
+		TextView textView = (TextView)findViewById(R.id.importTextView);
+		rel.removeAllViewsInLayout();
+		contactList.clear();
+		addInitialViews(textView);
+		
 		GroupContactSharingApplication myApp = (GroupContactSharingApplication) getApplication();
 		ContactViewModel _model = myApp.getModel();
 
@@ -109,6 +107,7 @@ public class ImportDataActivity extends Activity implements ContactUpdatedListen
 				contactList.add(newContact);
 			}
 		}
+		createImportButton();
 	}
 
 	private Map<String, Contact> getOldState() {
