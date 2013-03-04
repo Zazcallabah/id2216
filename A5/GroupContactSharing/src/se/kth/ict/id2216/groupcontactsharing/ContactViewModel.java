@@ -192,6 +192,10 @@ public class ContactViewModel  {
 			id = java.util.UUID.randomUUID().toString();
 		return id;
 	}
+	
+	public void setId(String newId) {
+		this.id = newId;
+	}
 
 	public void mergeContacts(List<ContactDetails> list) {
 		if( list == null )

@@ -59,6 +59,7 @@ public class IdentifyGroupActivity extends Activity {
 			nameModel.setDisplayName(_model.getDisplayName());
 			_model.setLabel(label);
 			nameModel.setLabel(label);
+			nameModel.setId(_model.getId());
 			//new PostDataTask().execute(_model);
 			new PostDataTask().execute(nameModel);
 			Intent excludeReceivers = new Intent(this, SelectReceiversActivity.class);
