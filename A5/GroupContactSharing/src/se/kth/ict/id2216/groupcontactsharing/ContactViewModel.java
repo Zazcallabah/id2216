@@ -193,10 +193,6 @@ public class ContactViewModel  {
 		return id;
 	}
 	
-	public void setId(String newId) {
-		this.id = newId;
-	}
-
 	public void mergeContacts(List<ContactDetails> list) {
 		if( list == null )
 			return;
